@@ -197,3 +197,73 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
             {
             }
+
+### 更新设备组 [PUT]
+
++ 参数
+    + ops: 操作，"assign" | "unassign"
+    + macs: MAC 列表
+    + reassign: 当 ops 为 "assign" 时有效。当 reassgin 为 true，MAC 如果已经在某个设备组下面，会被移动到当前组；当 reassign 为 false，MAC 如果已经在某个设备组下面，则移动失败。
+
+#### 分配设备
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+            {
+                "ops": "assign",
+                "macs": ["5ccc3d9d5205", "ed7a6aaddd5f", "24017a84df87"],
+                "reassign": true
+            }
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "success": ["5ccc3d9d5205"],
+                "failed": ["ed7a6aaddd5f"],
+                "unkown": []
+            }
+
+#### 取消分配设备
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+            {
+                "ops": "unassign",
+                "macs": ["ed7a6aaddd5f", "24017a84df87"]
+            }
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "success": ["5ccc3d9d5205"],
+                "failed": ["ed7a6aaddd5f"],
+                "unkown": ["24017a84df87"]
+            }
