@@ -205,8 +205,6 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
     + macs: MAC 列表
     + reassign: 当 ops 为 "assign" 时有效。当 reassgin 为 true，MAC 如果已经在某个设备组下面，会被移动到当前组；当 reassign 为 false，MAC 如果已经在某个设备组下面，则移动失败。
 
-分配设备
-
 + Request (application/json)
 
     + Header
@@ -236,8 +234,6 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                 "failed": ["ed7a6aaddd5f"],
                 "unkown": []
             }
-
-取消分配设备
 
 + Request (application/json)
 
