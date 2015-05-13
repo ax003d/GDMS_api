@@ -135,3 +135,65 @@ GDMS(Gizwits Device Management System) 机智云设备管理系统
                 "token": "7cf955ec8b504d6497d83f39ce9b16d2",
                 "expired_at": 1372700873
             }
+
+# Group 设备组
+
+## 设备组 [/device_group]
+
+### 创建设备组 [POST]
+
+parent 为可选参数，如果有 parent 表示创建一个子设备组。
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+        {
+            "parent": "450efc08ee084a839bbf15d5f9ada9e7"
+        }
+
++ Response 201 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "gid": "06e248b1b3ef4f10a1bfbe78402aa94f"
+            }
+
+## 设备组管理 [/device_group/{gid}]
+
++ Parameters
+    + gid (required, string, `06e248b1b3ef4f10a1bfbe78402aa94f`)
+
+### 删除设备组 [DELETE]
+
+删除设备组需要先清空设备组下所有设备。
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+            }
