@@ -9,9 +9,9 @@ GDMS(Gizwits Device Management System) 机智云设备管理系统
 
 ## 关联产品 [/product/connect]
 
-### 关联产品 [POST]
+### 创建关联 [POST]
 
-一个 product_key 只能关联到一个 enterprise_id.
+一个 product_key 只能关联到一个 enterprise_id。
 
 + Request (application/json)
 
@@ -25,6 +25,40 @@ GDMS(Gizwits Device Management System) 机智云设备管理系统
             }
 
 + Response 201 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+            }
+
+### 取消关联 [DELETE]
+
+产品下存在设备组不允许取消关联。
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "enterprise_id": "",
+                "enterprise_secret": "",
+                "product_key": "",
+                "product_secret": ""
+            }
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
 
     + Body
 
