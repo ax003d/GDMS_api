@@ -700,6 +700,66 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             }
 
 
+## 搜索设备 [/device/search?{gid,country,region,city,is_online,is_fault,is_alert,mac,did,uid,active_start}]
+
++ Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + country (optional, string, `China`)
+    + region (optional, string, `Guangdong`)
+    + city (optional, string, `Guangzhou`)
+    + is_online (optional, integer, `1`, 在线为 1，不在线为 0)
+    + is_fault (optional, integer, `1`, 故障为 1，无故障为 0)
+    + is_alert (optional, integer, `1`, 报警为 1，无报警为 0)
+    + active_start (optional, integer, `1431593561`, 最近活跃时间戳)
+    + did (optional, string, `gdGn7PzAYf4VrhnVag5x8D`)
+    + mac (optional, string, `30bd7c6f94fd`)
+    + uid (optional, string, `885db34ecd4f475a956048b2d99136bc`)
+
+### 搜索设备 [GET]
+
+mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 uid 的优先级顺序选取其一进行搜索。
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "meta": {
+                    "total": 100,
+                    "limit": 20,
+                    "skip": 0,
+                    "next": "/v1/device/search?did=gdGn7PzAYf4VrhnVag5x8D&skip=20&limit=20",
+                    "previous": null
+                },
+                "objects": [{
+                    "did": "gdGn7PzAYf4VrhnVag5x8D",
+                    "mac": "30bd7c6f94fd",
+                    "is_online": true,
+                    "country": "China", 
+                    "region": "Guangdong",
+                    "city": "Guangzhou",
+                    "longitude": 116.30814954222,
+                    "latitude": 40.056885091681,
+                    "is_fault": false,  
+                    "is_alert": false,
+                    "latest_online": "2015-04-05 12:01:00",
+                    "created_at": "2015-01-02 12:00:00"
+                }]
+            }
+
+
 # Group 用户
 
 ## 用户总数报表 [/user/report/total{?gid}]
