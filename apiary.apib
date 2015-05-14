@@ -293,6 +293,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
             {
                 "report_time": "2015-05-14 12:00:00",
+                "gid": "",
                 "total": 5600,
                 "activated": 5000,
                 "nonactivated": 600,
@@ -305,6 +306,159 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                         }
                     }
                 }
+            }
+
+## 新增激活报表 [/device/report/activate/new{?gid,cycle,start,end}]
+
++ Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + cycle (required, string, `date`, 统计周期，可以为 date, week 或 month)
+    + start (required, string, `2015-10-01`, 起始周期，为起始日期、起始周或起始月)
+    + end (required, string, `2015-10-05`, 结束周期，为结束日期、结束周或结束月)
+
+日报表最多查询 30 天。
+
+### 获取新增激活报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "gid": "",
+                "cycle": "date",
+                "start": "2015-10-01",
+                "end": "2015-10-02",
+                "data": [
+                    {
+                        "date": "2015-10-01",
+                        "count": 1100,
+                        "China": { 
+                            "count": 1000, 
+                            "Guangdong": { 
+                                "count": 300, 
+                                "Guangzhou": 20 
+                            } 
+                        }             
+                    },
+                    {
+                        "date": "2015-10-02",
+                        "count": 1100,
+                        "China": { 
+                            "count": 1000, 
+                            "Guangdong": { 
+                                "count": 300, 
+                                "Guangzhou": 20 
+                            } 
+                        }             
+                    }
+                ]
+            }
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "gid": "",
+                "cycle": "week",
+                "start": "2015-13",
+                "end": "2015-14",
+                "data": [
+                    {
+                        "week": "2015-13",
+                        "count": 1100,
+                        "China": { 
+                            "count": 1000, 
+                            "Guangdong": { 
+                                "count": 300, 
+                                "Guangzhou": 20 
+                            } 
+                        }             
+                    },
+                    {
+                        "week": "2015-14",
+                        "count": 1100,
+                        "China": { 
+                            "count": 1000, 
+                            "Guangdong": { 
+                                "count": 300, 
+                                "Guangzhou": 20 
+                            } 
+                        }             
+                    }
+                ]
+            }
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "gid": "",
+                "cycle": "month",
+                "start": "2015-01",
+                "end": "2015-02",
+                "data": [
+                    {
+                        "month": "2015-01",
+                        "count": 1100,
+                        "China": { 
+                            "count": 1000, 
+                            "Guangdong": { 
+                                "count": 300, 
+                                "Guangzhou": 20 
+                            } 
+                        }             
+                    },
+                    {
+                        "month": "2015-02",
+                        "count": 1100,
+                        "China": { 
+                            "count": 1000, 
+                            "Guangdong": { 
+                                "count": 300, 
+                                "Guangzhou": 20 
+                            } 
+                        }             
+                    }
+                ]
             }
 
 
@@ -333,6 +487,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
             {
                 "report_time": "2015-05-14 12:00:00",
+                "gid": "",
                 "fault": {
                     "total": 5600,
                     "resolved": 5000,
