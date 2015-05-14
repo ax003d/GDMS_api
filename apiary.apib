@@ -268,6 +268,85 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
 # Group 设备
 
+## 激活报表 [/device/report/activate{?gid}]
+
++ Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+
+### 获取激活报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "report_time": "2015-05-14 12:00:00",
+                "total": 5600,
+                "activated": 5000,
+                "nonactivated": 600,
+                "location": {
+                    "China": {
+                        "count": 1000,
+                        "Guangdong": {
+                            "count": 500,
+                            "Guangzhou": 60
+                        }
+                    }
+                }
+            }
+
+
+## 故障设备报表 [/device/report/error{?gid}]
+
++ Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+
+### 获取故障设备报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "report_time": "2015-05-14 12:00:00",
+                "fault": {
+                    "total": 5600,
+                    "resolved": 5000,
+                    "unresolved": 600
+                },
+                "alert": {
+                    "total": 5600,
+                    "resolved": 5000,
+                    "unresolved": 600
+                }
+            }
+
+
+
 # Group 用户
 
 # Group 故障与报警
