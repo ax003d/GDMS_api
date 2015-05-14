@@ -902,6 +902,47 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
                 }]
             }
 
+## 设备地理位置分布 [/device/location{?gid,is_online,is_fault,is_alert}]
+
++ Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + is_online (optional, boolean, `true`)
+    + is_fault (optional, boolean, `flase`)
+    + is_alert (optional, boolean, `false`)
+
+### 获取设备地理位置分布 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "report_time": "2015-05-14 12:00:00",
+                "gid": "",
+                "total": 5600,
+                "location": {
+                    "China": {
+                        "count": 1000,
+                        "Guangdong": {
+                            "count": 500,
+                            "Guangzhou": 60
+                        }
+                    }
+                }
+            }
+
 
 # Group 用户
 
@@ -1091,4 +1132,3 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
 
 
 # Group 故障与报警
-
