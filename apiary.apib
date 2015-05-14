@@ -841,5 +841,51 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             }
 
 
+## 搜索用户 [/user/search{?type,val,limit,skip}]
+
++ Parameters
+    + type (required, string, `username`, 查询条件，为 username|phone|email|mac)
+    + val (required, string, `Bob`, 查询条件值)
+    + limit (optional, integer, `20`, 每次返回的条数)
+    + skip (optional, integer, `0`, 每次跳过的条数
+
+### 搜索用户 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "meta": {
+                    "total": 100,
+                    "limit": 20,
+                    "skip": 0,
+                    "next": "/v1/user/search?type=username&val=Bob&skip=20&limit=20",
+                    "previous": null
+                },
+                "objects": [{
+                    "uid": "4e31bf18f65041e2922bb1d918ed9299",
+                    "username": "Bob",
+                    "phone": null,
+                    "email": null,
+                    "created_at": "2015-01-03 12:00:00",
+                    "is_anonymous": false,
+                    "auth_src": null
+                }]
+            }
+
+
 # Group 故障与报警
 
