@@ -1,9 +1,13 @@
 FORMAT: 1A
-HOST: http://api.gdms.gizwits.com/v1/
+HOST: http://enterprise.api.gizwits.com/v1/
 
-# GDMS
+# Enterprise API
 
-GDMS(Gizwits Device Management System) 机智云设备管理系统
+# TODO
+
+cache
+all timestamp
+all null
 
 # 错误信息
 
@@ -23,7 +27,7 @@ GDMS(Gizwits Device Management System) 机智云设备管理系统
 
 # Group 产品
 
-## 关联产品 [/product/connection]
+## 关联产品 [/products/{product_key}/association]
 
 ### 创建关联 [POST]
 
@@ -36,7 +40,6 @@ GDMS(Gizwits Device Management System) 机智云设备管理系统
             {
                 "enterprise_id": "ad7e60f0594247dcba017ba76d2f4275",
                 "enterprise_secret": "db2ac98200824181b447b03e4d42f99b",
-                "product_key": "c614a62ceb06499984b1bd67422650d7",
                 "product_secret": "8f11ee69eb9d4269ba0777ca5e7280f5"
             }
 
@@ -64,7 +67,6 @@ GDMS(Gizwits Device Management System) 机智云设备管理系统
             {
                 "enterprise_id": "ad7e60f0594247dcba017ba76d2f4275",
                 "enterprise_secret": "db2ac98200824181b447b03e4d42f99b",
-                "product_key": "c614a62ceb06499984b1bd67422650d7",
                 "product_secret": "8f11ee69eb9d4269ba0777ca5e7280f5"
             }
 
@@ -81,33 +83,7 @@ GDMS(Gizwits Device Management System) 机智云设备管理系统
             {
             }
 
-## 产品信息 [/product/info]
-
-### 获取产品信息 [GET]
-
-+ Request (application/json)
-
-    + Header
-
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
-
-+ Response 200 (application/json)
-
-    + Header
-
-            X-RateLimit-Limit: 60
-            X-RateLimit-Remaining: 56
-            X-RateLimit-Reset: 1372700873
-
-    + Body
-
-            {
-                "name": "Good Product"
-            }
-
-# Group 授权
-
-## 授权 [/authorize]
+## 授权 [/products/{product_key}/access_token]
 
 ### 获取 token [POST]
 
@@ -117,8 +93,7 @@ GDMS(Gizwits Device Management System) 机智云设备管理系统
 
             {
                 "enterprise_id": "ad7e60f0594247dcba017ba76d2f4275",
-                "enterprise_secret": "db2ac98200824181b447b03e4d42f99b",
-                "product_key": "c614a62ceb06499984b1bd67422650d7",
+                "enterprise_secret": "db2ac98200824181b447b03e4d42f99b"
             }
 
 + Response 201 (application/json)
@@ -136,9 +111,43 @@ GDMS(Gizwits Device Management System) 机智云设备管理系统
                 "expired_at": 1372700873
             }
 
+## 产品信息 [/products/{product_key}]
+
+### 获取产品信息 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "name": "Good Product"
+            }
+
+# Group 企业登录（内部）
+
+## 企业登录验证 [/enterprises/verfiy]
+
+{
+    "enterprise_id": "",
+    "enterprise_secret": "",
+    "ip": ""
+}
+
 # Group 设备组
 
-## 设备组 [/device_group]
+## 设备组 [/products/{product_key}/device_groups]
 
 ### 创建设备组 [POST]
 
@@ -148,12 +157,12 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
     + Body
 
         {
-            "parent": "450efc08ee084a839bbf15d5f9ada9e7"
+            "parent_gid": "450efc08ee084a839bbf15d5f9ada9e7"
         }
 
 + Response 201 (application/json)
@@ -170,7 +179,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                 "gid": "06e248b1b3ef4f10a1bfbe78402aa94f"
             }
 
-## 设备组管理 [/device_group/{gid}]
+## 设备组管理 [/products/{product_key}/device_groups/{gid}]
 
 + Parameters
     + gid (required, string, `06e248b1b3ef4f10a1bfbe78402aa94f`)
@@ -183,7 +192,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -203,20 +212,20 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 一个 MAC 只能属于产品下的某一个分组。
 
 + 参数
-    + ops: 操作，"assign" | "unassign"
+    + action: 操作，"assign" | "unassign"
     + macs: MAC 列表
-    + reassign: 当 ops 为 "assign" 时有效。当 reassgin 为 true，MAC 如果已经在某个设备组下面，会被移动到当前组；当 reassign 为 false，MAC 如果已经在某个设备组下面，则移动失败。
+    + reassign: 当 action 为 "assign" 时有效。当 reassgin 为 true，MAC 如果已经在某个设备组下面，会被移动到当前组；当 reassign 为 false，MAC 如果已经在某个设备组下面，则移动失败。
 
 + Request (application/json)
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
     + Body
 
             {
-                "ops": "assign",
+                "action": "assign",
                 "macs": ["5ccc3d9d5205", "ed7a6aaddd5f", "24017a84df87"],
                 "reassign": true
             }
@@ -233,20 +242,19 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
             {
                 "success": ["5ccc3d9d5205"],
-                "failed": ["ed7a6aaddd5f"],
-                "unkown": []
+                "failed": ["ed7a6aaddd5f"]
             }
 
 + Request (application/json)
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
     + Body
 
             {
-                "ops": "unassign",
+                "action": "unassign",
                 "macs": ["ed7a6aaddd5f", "24017a84df87"]
             }
 
@@ -262,13 +270,12 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
             {
                 "success": ["5ccc3d9d5205"],
-                "failed": ["ed7a6aaddd5f"],
-                "unkown": ["24017a84df87"]
+                "failed": ["ed7a6aaddd5f"]
             }
 
 # Group 设备
 
-## 激活报表 [/device/report/activate{?gid}]
+## 激活报表 [/products/{product_key}/devices/report/activation{?gid}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -279,7 +286,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -288,6 +295,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            cache(etag/last-modified)
 
     + Body
 
@@ -308,7 +316,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                 }
             }
 
-## 激活历史报表 [/device/report/activate/history{?gid,cycle,start,end}]
+## 激活历史报表 [/products/{product_key}/devices/report/activation/history{?gid,cycle,start,end}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -319,12 +327,14 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 ### 获取激活历史报表 [GET]
 
 日报表最多查询 30 天。
+周报表最多查询 8 周。
+月报表最多查询 12 月。
 
 + Request (application/json)
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -371,7 +381,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -418,7 +428,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -461,46 +471,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                 ]
             }
 
-
-## 故障设备报表 [/device/report/error{?gid}]
-
-+ Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
-
-### 获取故障设备报表 [GET]
-
-+ Request (application/json)
-
-    + Header
-
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
-
-+ Response 200 (application/json)
-
-    + Header
-
-            X-RateLimit-Limit: 60
-            X-RateLimit-Remaining: 56
-            X-RateLimit-Reset: 1372700873
-
-    + Body
-
-            {
-                "report_time": "2015-05-14 12:00:00",
-                "gid": "",
-                "fault": {
-                    "total": 5600,
-                    "resolved": 5000,
-                    "unresolved": 600
-                },
-                "alert": {
-                    "total": 5600,
-                    "resolved": 5000,
-                    "unresolved": 600
-                }
-            }
-
-## 活跃设备报表 [/device/report/active{?gid}]
+## 活跃设备报表 [/products/{product_key}/devices/report/liveness{?gid}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -511,7 +482,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -548,7 +519,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                 }
             }
 
-## 活跃历史报表 [/device/report/active/history{?gid,cycle,start,end}]
+## 活跃历史报表 [/products/{product_key}/devices/report/liveness/history{?gid,cycle,start,end}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -562,7 +533,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -609,7 +580,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -656,7 +627,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -700,7 +671,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             }
 
 
-## 搜索设备 [/device/search?{gid,country,region,city,is_online,is_fault,is_alert,mac,did,uid,active_start}]
+## 搜索设备 [/products/{product_key}/devices/search?{gid,country,region,city,is_online,is_faulty,is_alert,type,val,liveness_start,limit,skip}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -708,22 +679,23 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
     + region (optional, string, `Guangdong`)
     + city (optional, string, `Guangzhou`)
     + is_online (optional, integer, `1`, 在线为 1，不在线为 0)
-    + is_fault (optional, integer, `1`, 故障为 1，无故障为 0)
+    + is_faulty (optional, integer, `1`, 故障为 1，无故障为 0)
     + is_alert (optional, integer, `1`, 报警为 1，无报警为 0)
-    + active_start (optional, integer, `1431593561`, 最近活跃时间戳)
-    + did (optional, string, `gdGn7PzAYf4VrhnVag5x8D`)
-    + mac (optional, string, `30bd7c6f94fd`)
-    + uid (optional, string, `885db34ecd4f475a956048b2d99136bc`)
+    + liveness_start (optional, integer, `1431593561`, 最近活跃时间戳)
+    + type (optional, string, `did`, 可以为 did, mac, uid)
+    + val (optional, string, `gdGn7PzAYf4VrhnVag5x8D`)
+    + limit (optional, integer, `20`)
+    + skip (optional, integer, `0`)    
 
 ### 搜索设备 [GET]
 
-mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 uid 的优先级顺序选取其一进行搜索。
+mac 地址忽略大小写。
 
 + Request (application/json)
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -740,7 +712,7 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
                     "total": 100,
                     "limit": 20,
                     "skip": 0,
-                    "next": "/v1/device/search?did=gdGn7PzAYf4VrhnVag5x8D&skip=20&limit=20",
+                    "next": "/v1//products/8f11ee69eb9d4269ba0777ca5e7280f5/devices/search?did=gdGn7PzAYf4VrhnVag5x8D&skip=20&limit=20",
                     "previous": null
                 },
                 "objects": [{
@@ -752,17 +724,17 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
                     "city": "Guangzhou",
                     "longitude": 116.30814954222,
                     "latitude": 40.056885091681,
-                    "is_fault": false,  
+                    "is_faulty": false,  
                     "is_alert": false,
-                    "latest_online": "2015-04-05 12:01:00",
-                    "created_at": "2015-01-02 12:00:00"
+                    "latest_online": 1372700873,
+                    "created_at": 1372700873
                 }]
             }
 
-## 设备历史数据 [/device/{did}/data{?start_ts,end_ts,limit,skip}]
+## 设备历史数据 [/products/{product_key}/devices/{did}/data{?start_ts,end_ts,limit,skip}]
 
 + Parameters
-    + did (optional, string, `gdGn7PzAYf4VrhnVag5x8D`)
+    + did (required, string, `gdGn7PzAYf4VrhnVag5x8D`)
     + start_ts (optional, integer, `1372700873`)
     + end_ts (optional, integer, `1372701873`)
     + limit (optional, integer, `20`)
@@ -770,11 +742,13 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
 
 ### 获取设备历史数据 [GET]
 
+按 ts 降序排序。
+
 + Request (application/json)
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -809,10 +783,10 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
                 }]
             }
 
-## 设备上下线记录 [/device/{did}/online{?start_ts,end_ts,limit,skip}]
+## 设备上下线记录 [/products/{product_key}/devices/{did}/online{?start_ts,end_ts,limit,skip}]
 
 + Parameters
-    + did (optional, string, `gdGn7PzAYf4VrhnVag5x8D`)
+    + did (required, string, `gdGn7PzAYf4VrhnVag5x8D`)
     + start_ts (optional, integer, `1372700873`)
     + end_ts (optional, integer, `1372701873`)
     + limit (optional, integer, `20`)
@@ -820,11 +794,13 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
 
 ### 获取设备上下线记录 [GET]
 
+按 ts 降序排序。
+
 + Request (application/json)
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -848,7 +824,7 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
                     "ts": 1372701873,
                     "type": "online",
                     "payload": ""
-                }, {
+                    },{
                     "ts": 1372701880,
                     "type": "offline",
                     "payload": "{\"duration\": 0, \"heartbeat\": {\"count\": 4, \"max\": 0, \"avg\": 0, \"last\": 0, \"min\": 0}, \"reason\": \"tcp_closed\"}"
@@ -856,7 +832,7 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
             }
 
 
-## 设备通信日志 [/device/{did}/cmd{?start_ts,end_ts,limit,skip}]
+## 设备通信日志 [/products/{product_key}/devices/{did}/cmd{?start_ts,end_ts,limit,skip}]
 
 + Parameters
     + did (optional, string, `gdGn7PzAYf4VrhnVag5x8D`)
@@ -867,11 +843,14 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
 
 ### 获取设备通信日志 [GET]
 
+按 ts 降序排序。
+payload 为二进制进行 base64 编码后的结果。
+
 + Request (application/json)
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -902,13 +881,13 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
                 }]
             }
 
-## 设备地理位置分布 [/device/location{?gid,is_online,is_fault,is_alert}]
+## 设备地理位置分布 [/products/{product_key}/devices/locations{?gid,is_online,is_faulty,is_alert}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
-    + is_online (optional, boolean, `true`)
-    + is_fault (optional, boolean, `flase`)
-    + is_alert (optional, boolean, `false`)
+    + is_online (optional, integer, `1`)
+    + is_faulty (optional, integer, `0`)
+    + is_alert (optional, integer, `1`)
 
 ### 获取设备地理位置分布 [GET]
 
@@ -916,7 +895,7 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -946,7 +925,7 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
 
 # Group 用户
 
-## 用户总数报表 [/user/report/total{?gid}]
+## 用户总数报表 [/products/{product_key}/users/report/total{?gid}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -957,7 +936,7 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -975,7 +954,7 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
                 "total": 5600
             }
 
-## 用户新增报表 [/user/report/new{?gid,cycle,start,end}]
+## 用户新增报表 [/products/{product_key}/users/report/new{?gid,cycle,start,end}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -989,7 +968,7 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -1022,7 +1001,7 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -1055,7 +1034,7 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -1085,21 +1064,24 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
             }
 
 
-## 搜索用户 [/user/search{?type,val,limit,skip}]
+## 搜索用户 [/products/{product_key}/users/search{?type,val,limit,skip}]
 
 + Parameters
-    + type (required, string, `username`, 查询条件，为 username|phone|email|mac)
-    + val (required, string, `Bob`, 查询条件值)
+    + type (optional, string, `username`, 查询条件，为 username|phone|email|did|mac)
+    + val (optional, string, `Bob`, 查询条件值)
     + limit (optional, integer, `20`, 每次返回的条数)
     + skip (optional, integer, `0`, 每次跳过的条数
 
 ### 搜索用户 [GET]
 
+username 为模糊查找；mac 地址忽略大小写；其他精确匹配。
+auth_src 可以为 qq, baidu, sina。
+
 + Request (application/json)
 
     + Header
 
-        X-GDMS-Product-Token: 7cf955ec8b504d6497d83f39ce9b16d2
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
@@ -1124,11 +1106,254 @@ mac, did, uid 三种参数任选其一，如果都提供，按照 did, mac 和 u
                     "username": "Bob",
                     "phone": null,
                     "email": null,
-                    "created_at": "2015-01-03 12:00:00",
+                    "created_at": 1372700873,
                     "is_anonymous": false,
                     "auth_src": null
                 }]
             }
 
+# Group 故障与报表
 
-# Group 故障与报警
+## 故障设备台数报表 [/products/{product_key}/fault/report/devices{?gid}]
+
++ Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+
+### 获取故障设备台数报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "report_time": "2015-05-14 12:00:00",
+                "gid": "",
+                "total": 5600,
+                "resolved": 5000,
+                "unresolved": 600,
+                "location": {
+                    "China": {
+                        "total": 5600,
+                        "resolved": 5000,
+                        "unresolved": 600,
+                        "Guangdong": {
+                            "total": 5600,
+                            "resolved": 5000,
+                            "unresolved": 600,
+                            "Guangzhou": {
+                                "total": 5600,
+                                "resolved": 5000,
+                                "unresolved": 600
+                            }
+                        }
+                    }
+                }
+            }
+
+## 报警设备台数报表 [/products/{product_key}/alert/report/devices{?gid}]
+
++ Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+
+### 获取报警设备台数报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "report_time": "2015-05-14 12:00:00",
+                "gid": "",
+                "total": 5600,
+                "resolved": 5000,
+                "unresolved": 600,
+                "location": {
+                    "China": {
+                        "total": 5600,
+                        "resolved": 5000,
+                        "unresolved": 600,
+                        "Guangdong": {
+                            "total": 5600,
+                            "resolved": 5000,
+                            "unresolved": 600,
+                            "Guangzhou": {
+                                "total": 5600,
+                                "resolved": 5000,
+                                "unresolved": 600
+                            }
+                        }
+                    }
+                }
+            }
+
+
+## 故障次数报表 [/products/{product_key}/alert/report/events{?gid}]
+
+### 获取故障次数报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "report_time": "2015-05-14 12:00:00",
+                "gid": "",
+                "total": 5600,
+                "resolved": 5000,
+                "unresolved": 600,
+                "detail": {
+                    "gate": {
+                        "total": 5600,
+                        "resolved": 5000,
+                        "unresolved": 600,
+                    }
+                },
+                "location": {
+                    "China": {
+                        "total": 5600,
+                        "resolved": 5000,
+                        "unresolved": 600,
+                        "detail": {
+                            "gate": {
+                                "total": 5600,
+                                "resolved": 5000,
+                                "unresolved": 600,
+                            }
+                        },
+                        "Guangdong": {
+                            "total": 5600,
+                            "resolved": 5000,
+                            "unresolved": 600,
+                            "detail": {
+                                "gate": {
+                                    "total": 5600,
+                                    "resolved": 5000,
+                                    "unresolved": 600,
+                                }
+                            },
+                            "Guangzhou": {
+                                "total": 5600,
+                                "resolved": 5000,
+                                "unresolved": 600,
+                                "detail": {
+                                    "gate": {
+                                        "total": 5600,
+                                        "resolved": 5000,
+                                        "unresolved": 600,
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
+## 报警次数报表 [/products/{product_key}/alert/report/events{?gid}]
+
+### 获取报警次数报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "report_time": "2015-05-14 12:00:00",
+                "gid": "",
+                "total": 5600,
+                "resolved": 5000,
+                "unresolved": 600,
+                "detail": {
+                    "gate": {
+                        "total": 5600,
+                        "resolved": 5000,
+                        "unresolved": 600,
+                    }
+                },
+                "location": {
+                    "China": {
+                        "total": 5600,
+                        "resolved": 5000,
+                        "unresolved": 600,
+                        "detail": {
+                            "gate": {
+                                "total": 5600,
+                                "resolved": 5000,
+                                "unresolved": 600,
+                            }
+                        },
+                        "Guangdong": {
+                            "total": 5600,
+                            "resolved": 5000,
+                            "unresolved": 600,
+                            "detail": {
+                                "gate": {
+                                    "total": 5600,
+                                    "resolved": 5000,
+                                    "unresolved": 600,
+                                }
+                            },
+                            "Guangzhou": {
+                                "total": 5600,
+                                "resolved": 5000,
+                                "unresolved": 600,
+                                "detail": {
+                                    "gate": {
+                                        "total": 5600,
+                                        "resolved": 5000,
+                                        "unresolved": 600,
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
