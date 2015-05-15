@@ -3,12 +3,6 @@ HOST: http://enterprise.api.gizwits.com/v1/
 
 # Enterprise API
 
-# TODO
-
-cache
-all timestamp
-all null
-
 # 错误信息
 
 ## 错误信息格式
@@ -139,11 +133,24 @@ all null
 
 ## 企业登录验证 [/enterprises/verfiy]
 
-{
-    "enterprise_id": "",
-    "enterprise_secret": "",
-    "ip": ""
-}
+仅供 GDMS 连接 SSL 时，SSL 服务器验证 GDMS 时调用。
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "enterprise_id": "ad7e60f0594247dcba017ba76d2f4275",
+                "enterprise_secret": "db2ac98200824181b447b03e4d42f99b",
+                "ip": "127.0.0.1"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            {
+            }
 
 # Group 设备组
 
@@ -295,13 +302,13 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
-            cache(etag/last-modified)
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
 
     + Body
 
             {
-                "report_time": "2015-05-14 12:00:00",
-                "gid": "",
+                "gid": null,
                 "total": 5600,
                 "activated": 5000,
                 "nonactivated": 600,
@@ -343,11 +350,13 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
 
     + Body
 
             {
-                "gid": "",
+                "gid": null,
                 "cycle": "date",
                 "start": "2015-10-01",
                 "end": "2015-10-02",
@@ -361,7 +370,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                                 "count": 300, 
                                 "Guangzhou": 20 
                             } 
-                        }             
+                        }
                     },
                     {
                         "date": "2015-10-02",
@@ -372,7 +381,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                                 "count": 300, 
                                 "Guangzhou": 20 
                             } 
-                        }             
+                        }
                     }
                 ]
             }
@@ -390,11 +399,13 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
 
     + Body
 
             {
-                "gid": "",
+                "gid": null,
                 "cycle": "week",
                 "start": "2015-13",
                 "end": "2015-14",
@@ -408,7 +419,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                                 "count": 300, 
                                 "Guangzhou": 20 
                             } 
-                        }             
+                        }
                     },
                     {
                         "week": "2015-14",
@@ -419,7 +430,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                                 "count": 300, 
                                 "Guangzhou": 20 
                             } 
-                        }             
+                        }
                     }
                 ]
             }
@@ -437,11 +448,13 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
 
     + Body
 
             {
-                "gid": "",
+                "gid": null,
                 "cycle": "month",
                 "start": "2015-01",
                 "end": "2015-02",
@@ -455,7 +468,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                                 "count": 300, 
                                 "Guangzhou": 20 
                             } 
-                        }             
+                        }
                     },
                     {
                         "month": "2015-02",
@@ -466,7 +479,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                                 "count": 300, 
                                 "Guangzhou": 20 
                             } 
-                        }             
+                        }
                     }
                 ]
             }
@@ -491,12 +504,13 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
 
     + Body
 
             {
-                "report_time": "2015-05-14 12:00:00",
-                "gid": "",
+                "gid": null,
                 "latest_1": 40,
                 "latest_7": 100,
                 "latest_30": 300,
@@ -542,11 +556,13 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
 
     + Body
 
             {
-                "gid": "",
+                "gid": null,
                 "cycle": "date",
                 "start": "2015-10-01",
                 "end": "2015-10-02",
@@ -589,11 +605,13 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
-
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
+                        
     + Body
 
             {
-                "gid": "",
+                "gid": null,
                 "cycle": "week",
                 "start": "2015-13",
                 "end": "2015-14",
@@ -636,11 +654,13 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
 
     + Body
 
             {
-                "gid": "",
+                "gid": null,
                 "cycle": "month",
                 "start": "2015-01",
                 "end": "2015-02",
@@ -904,12 +924,13 @@ payload 为二进制进行 base64 编码后的结果。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
 
     + Body
 
             {
-                "report_time": "2015-05-14 12:00:00",
-                "gid": "",
+                "gid": null,
                 "total": 5600,
                 "location": {
                     "China": {
@@ -945,12 +966,13 @@ payload 为二进制进行 base64 编码后的结果。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
 
     + Body
 
             {
-                "report_time": "2015-05-14 12:00:00",
-                "gid": "",
+                "gid": null,
                 "total": 5600
             }
 
@@ -977,11 +999,13 @@ payload 为二进制进行 base64 编码后的结果。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
 
     + Body
 
             {
-                "gid": "",
+                "gid": null,
                 "cycle": "date",
                 "start": "2015-10-01",
                 "end": "2015-10-02",
@@ -1010,11 +1034,13 @@ payload 为二进制进行 base64 编码后的结果。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
 
     + Body
 
             {
-                "gid": "",
+                "gid": null,
                 "cycle": "week",
                 "start": "2015-13",
                 "end": "2015-14",
@@ -1043,11 +1069,13 @@ payload 为二进制进行 base64 编码后的结果。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
 
     + Body
 
             {
-                "gid": "",
+                "gid": null,
                 "cycle": "month",
                 "start": "2015-01",
                 "end": "2015-02",
@@ -1134,12 +1162,13 @@ auth_src 可以为 qq, baidu, sina。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
 
     + Body
 
             {
-                "report_time": "2015-05-14 12:00:00",
-                "gid": "",
+                "gid": null,
                 "total": 5600,
                 "resolved": 5000,
                 "unresolved": 600,
@@ -1182,12 +1211,13 @@ auth_src 可以为 qq, baidu, sina。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
 
     + Body
 
             {
-                "report_time": "2015-05-14 12:00:00",
-                "gid": "",
+                "gid": null,
                 "total": 5600,
                 "resolved": 5000,
                 "unresolved": 600,
@@ -1228,12 +1258,13 @@ auth_src 可以为 qq, baidu, sina。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
 
     + Body
 
             {
-                "report_time": "2015-05-14 12:00:00",
-                "gid": "",
+                "gid": null,
                 "total": 5600,
                 "resolved": 5000,
                 "unresolved": 600,
@@ -1302,12 +1333,13 @@ auth_src 可以为 qq, baidu, sina。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
 
     + Body
 
             {
-                "report_time": "2015-05-14 12:00:00",
-                "gid": "",
+                "gid": null,
                 "total": 5600,
                 "resolved": 5000,
                 "unresolved": 600,
