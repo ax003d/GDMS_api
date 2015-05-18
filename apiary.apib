@@ -222,7 +222,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
 + 参数
     + action: 操作，"assign" | "unassign"
-    + macs: MAC 列表
+    + macs: MAC 列表，最多一次上传 1000 个 MAC
     + reassign: 当 action 为 "assign" 时有效。当 reassgin 为 true，MAC 如果已经在某个设备组下面，会被移动到当前组；当 reassign 为 false，MAC 如果已经在某个设备组下面，则移动失败。
 
 + Request (application/json)
