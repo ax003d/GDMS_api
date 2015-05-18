@@ -1097,6 +1097,7 @@ payload 为二进制进行 base64 编码后的结果。
 ## 搜索用户 [/products/{product_key}/users/search{?type,val,limit,skip}]
 
 + Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
     + type (optional, string, `username`, 查询条件，为 username|phone|email|did|mac)
     + val (optional, string, `Bob`, 查询条件值)
     + limit (optional, integer, `20`, 每次返回的条数)
