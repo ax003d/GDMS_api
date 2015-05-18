@@ -336,7 +336,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 ### 获取激活历史报表 [GET]
 
 日报表最多查询 30 天。
-周报表最多查询 8 周。
+周报表最多查询 53 周。
 月报表最多查询 12 月。
 
 + Request (application/json)
@@ -545,6 +545,10 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
 ### 获取活跃历史报表 [GET]
 
+日报表最多查询 30 天。
+周报表最多查询 53 周。
+月报表最多查询 12 月。
+
 + Request (application/json)
 
     + Header
@@ -712,6 +716,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 ### 搜索设备 [GET]
 
 mac 地址忽略大小写。
+按照设备最近的登陆时间降序排序。
 
 + Request (application/json)
 
@@ -988,6 +993,10 @@ payload 为二进制进行 base64 编码后的结果。
 
 ### 获取用户新增报表 [GET]
 
+日报表最多查询 30 天。
+周报表最多查询 53 周。
+月报表最多查询 12 月。
+
 + Request (application/json)
 
     + Header
@@ -1107,6 +1116,8 @@ payload 为二进制进行 base64 编码后的结果。
 
 username 为模糊查找；mac 地址忽略大小写；其他精确匹配。
 auth_src 可以为 qq, baidu, sina。
+只返回和设备具有绑定关系的用户。
+按照用户的创建时间升序排序。
 
 + Request (application/json)
 
