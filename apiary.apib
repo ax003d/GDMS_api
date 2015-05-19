@@ -8,16 +8,20 @@ HOST: http://enterprise.api.gizwits.com/v1/
 ## 错误信息格式
 
     {
-        "error_code": 5001,
-        "error_msg": "body json invalid"
+        "error_code": "5001",
+        "error_msg": "body json invalid",
+        "detail": ""
     }
 
 ## 错误信息列表
 
-| error_code | error_message     |
-|------------|-------------------|
-|       5001 | body json invalid |
-|       5002 | form invalid      |
+| status_code | error_code | error_message           |
+|-------------|------------|-------------------------|
+|         400 |       5001 | body json invalid       |
+|         400 |       5002 | form invalid            |
+|         404 |       5003 | enterprise id not exist |
+|         400 |       5004 | enterprise secret error |
+|         400 |       5005 | product secret error    |
 
 # Group 产品
 
