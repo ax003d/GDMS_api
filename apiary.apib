@@ -15,16 +15,26 @@ HOST: http://enterprise.api.gizwits.com/v1/
 
 ## 错误信息列表
 
-| status_code | error_code | error_message              |
-|-------------|------------|----------------------------|
-|         400 |       5001 | body json invalid          |
-|         400 |       5002 | form invalid               |
-|         404 |       5003 | enterprise id not exist    |
-|         400 |       5004 | enterprise secret error    |
-|         400 |       5005 | product secret error       |
-|         400 |       5006 | product exist devicegroups |
-|         404 |       5007 | association not exist      |
-|         400 |       5008 | association existed        |
+| status_code | error_code | error_message                           |
+|-------------|------------|-----------------------------------------|
+|         400 |       5001 | body json invalid                       |
+|         400 |       5002 | form invalid                            |
+|         404 |       5003 | enterprise id not exist                 |
+|         400 |       5004 | enterprise secret error                 |
+|         400 |       5005 | product secret error                    |
+|         400 |       5006 | product exist devicegroups              |
+|         404 |       5007 | association not exist                   |
+|         400 |       5008 | association existed                     |
+|         400 |       5009 | token invalid                           |
+|         400 |       5010 | token not match product_key             |
+|         400 |       5011 | token has expired                       |
+|         400 |       5012 | ip not in white list                    |
+|         403 |       5013 | API call rate limit exceed quota        |
+|         403 |       5201 | device group not belong to this product |
+|         404 |       5202 | parent group not exist                  |
+|         400 |       5203 | already has one root group              |
+|         400 |       5204 | group has subgroup                      |
+|         400 |       5205 | group has device item                   |
 
 # Group 产品
 
