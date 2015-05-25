@@ -180,6 +180,8 @@ HOST: http://enterprise.api.gizwits.com/v1/
 
 parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
+一个产品只能有一个根设备组。
+
 + Request (application/json)
 
     + Header
@@ -384,23 +386,27 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                     {
                         "date": "2015-10-01",
                         "count": 1100,
-                        "China": { 
-                            "count": 1000, 
-                            "Guangdong": { 
-                                "count": 300, 
-                                "Guangzhou": 20 
-                            } 
+                        "location": {
+                            "China": { 
+                                "count": 1000, 
+                                "Guangdong": { 
+                                    "count": 300, 
+                                    "Guangzhou": 20 
+                                } 
+                            }
                         }
                     },
                     {
                         "date": "2015-10-02",
                         "count": 1100,
-                        "China": { 
-                            "count": 1000, 
-                            "Guangdong": { 
-                                "count": 300, 
-                                "Guangzhou": 20 
-                            } 
+                        "location": {
+                            "China": { 
+                                "count": 1000, 
+                                "Guangdong": { 
+                                    "count": 300, 
+                                    "Guangzhou": 20 
+                                } 
+                            }
                         }
                     }
                 ]
@@ -433,23 +439,27 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                     {
                         "week": "2015-13",
                         "count": 1100,
-                        "China": { 
-                            "count": 1000, 
-                            "Guangdong": { 
-                                "count": 300, 
-                                "Guangzhou": 20 
-                            } 
+                        "location": {
+                            "China": { 
+                                "count": 1000, 
+                                "Guangdong": { 
+                                    "count": 300, 
+                                    "Guangzhou": 20 
+                                } 
+                            }
                         }
                     },
                     {
                         "week": "2015-14",
                         "count": 1100,
-                        "China": { 
-                            "count": 1000, 
-                            "Guangdong": { 
-                                "count": 300, 
-                                "Guangzhou": 20 
-                            } 
+                        "location": {
+                            "China": { 
+                                "count": 1000, 
+                                "Guangdong": { 
+                                    "count": 300, 
+                                    "Guangzhou": 20 
+                                } 
+                            }
                         }
                     }
                 ]
@@ -482,23 +492,27 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                     {
                         "month": "2015-01",
                         "count": 1100,
-                        "China": { 
-                            "count": 1000, 
-                            "Guangdong": { 
-                                "count": 300, 
-                                "Guangzhou": 20 
-                            } 
+                        "location": {
+                            "China": { 
+                                "count": 1000, 
+                                "Guangdong": { 
+                                    "count": 300, 
+                                    "Guangzhou": 20 
+                                } 
+                            }
                         }
                     },
                     {
                         "month": "2015-02",
                         "count": 1100,
-                        "China": { 
-                            "count": 1000, 
-                            "Guangdong": { 
-                                "count": 300, 
-                                "Guangzhou": 20 
-                            } 
+                        "location": {
+                            "China": {
+                                "count": 1000,
+                                "Guangdong": {
+                                    "count": 300,
+                                    "Guangzhou": 20
+                                } 
+                            }
                         }
                     }
                 ]
