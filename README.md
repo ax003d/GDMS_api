@@ -1,2 +1,2 @@
-# GDMS_api
+# Enterprise API
 Gizwits Device Management System API
