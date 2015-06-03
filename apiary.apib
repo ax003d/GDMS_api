@@ -173,7 +173,11 @@ HOST: http://enterprise.api.gizwits.com/v1/
             }
 
 
-## 企业关联产品列表 [/enterprises/association]
+## 企业关联产品列表 [/enterprises/association[?skip,limit]]
+
++ Parameters
+    + limit (optional, integer, `20`)
+    + skip (optional, integer, `0`)
 
 ### 获取企业关联产品列表 [GET]
 
@@ -190,11 +194,18 @@ HOST: http://enterprise.api.gizwits.com/v1/
 
     + Body
 
-            [
-                "450efc08ee084a839bbf15d5f9ada9e7",
-                "7cf955ec8b504d6497d83f39ce9b16d2"
-            ]
-
+            {
+                "meta": {
+                    "total": 100,
+                    "limit": 20,
+                    "skip": 0,
+                    "next": "/enterprises/association?skip=20&limit=20",
+                    "previous": null
+                },
+                "objects": [{
+                    "product_key": "7cf955ec8b504d6497d83f39ce9b16d2",
+                }]
+            }
 
 # Group 设备组
 
