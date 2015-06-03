@@ -172,6 +172,30 @@ HOST: http://enterprise.api.gizwits.com/v1/
             {
             }
 
+
+## 企业关联产品列表 [/enterprises/association]
+
+### 获取企业关联产品列表 [GET]
+
++ Request (application/json)
+
+    + Body
+
+            {
+                "enterprise_id": "ad7e60f0594247dcba017ba76d2f4275",
+                "enterprise_secret": "db2ac98200824181b447b03e4d42f99b"
+            }
+
++ Response 200 (application/json)
+
+    + Body
+
+            [
+                "450efc08ee084a839bbf15d5f9ada9e7",
+                "7cf955ec8b504d6497d83f39ce9b16d2"
+            ]
+
+
 # Group 设备组
 
 ## 设备组 [/products/{product_key}/device_groups]
