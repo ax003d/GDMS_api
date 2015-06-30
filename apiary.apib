@@ -30,11 +30,18 @@ HOST: http://enterprise.api.gizwits.com/v1/
 |         400 |       5011 | token has expired                       |
 |         400 |       5012 | ip not in white list                    |
 |         403 |       5013 | API call rate limit exceed quota        |
+|         400 |       5014 | Report has not been generated!          |
+|         404 |       5015 | Product key not exist                   |
 |         403 |       5201 | device group not belong to this product |
 |         404 |       5202 | parent group not exist                  |
 |         400 |       5203 | already has one root group              |
 |         400 |       5204 | group has subgroup                      |
 |         400 |       5205 | group has device item                   |
+|         404 |       5206 | group not exist                         |
+|         404 |       5301 | device not exist                        |
+|         403 |       5302 | device not belong to this product       |
+|         400 |       5303 | device not bound                        |
+|         400 |       5304 | device is disabled                      |
 
 # Group 产品
 
@@ -173,17 +180,19 @@ HOST: http://enterprise.api.gizwits.com/v1/
             }
 
 
-## 企业关联产品列表 [/enterprises/association{?enterprise_id,enterprise_secret,skip,limit}]
+## 企业关联产品列表 [/enterprises/{enterprise_id}/associations{?skip,limit}]
 
 + Parameters
-    + enterprise_id (required, string, `ad7e60f0594247dcba017ba76d2f4275`)
-    + enterprise_secret (required, string, `db2ac98200824181b447b03e4d42f99b`)
     + limit (optional, integer, `20`)
     + skip (optional, integer, `0`)
 
 ### 获取企业关联产品列表 [GET]
 
-+ Request (application/text)
++ Request (application/json)
+
+    + Header
+
+        X-Gizwits-Enterprise-Secret: db2ac98200824181b447b03e4d42f99b
 
 + Response 200 (application/json)
 
@@ -194,7 +203,7 @@ HOST: http://enterprise.api.gizwits.com/v1/
                     "total": 100,
                     "limit": 20,
                     "skip": 0,
-                    "next": "/enterprises/association?skip=20&limit=20",
+                    "next": "/enterprises/{enterprise_id}/associations?skip=20&limit=20",
                     "previous": null
                 },
                 "objects": [{
