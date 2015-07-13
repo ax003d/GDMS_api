@@ -151,7 +151,8 @@ HOST: http://enterpriseapi.gizwits.com/v1/
     + Body
 
             {
-                "name": "Good Product"
+                "name": "Good Product",
+                "type": "WiFi" | "Bluetooth"
             }
 
 # Group 企业平台登录（内部）
@@ -829,6 +830,64 @@ mac 地址忽略大小写。
                 }]
             }
 
+## 搜索蓝牙设备 [/products/{product_key}/devices/search_bt{?gid,country,region,city,type,val,liveness_start,limit,skip}]
+
++ Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + country (optional, string, `China`)
+    + region (optional, string, `Guangdong`)
+    + city (optional, string, `Guangzhou`)
+    + liveness_start (optional, integer, `1431593561`, 最近活跃时间戳)
+    + type (optional, string, `device_sn`, 可以为 device_sn|uid)
+    + val (optional, string, `gdGn7PzAYf4VrhnVag5x8D`)
+    + limit (optional, integer, `20`)
+    + skip (optional, integer, `0`)
+
+### 搜索蓝牙设备 [GET]
+
+device_sn 地址忽略大小写。
+
+按照设备最近的上报数据时间降序排序。
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "meta": {
+                    "total": 100,
+                    "limit": 20,
+                    "skip": 0,
+                    "next": "/v1/products/8f11ee69eb9d4269ba0777ca5e7280f5/devices/search_bt?device_sn=gdGn7PzAYf4VrhnVag5x8D&skip=20&limit=20",
+                    "previous": null
+                },
+                "objects": [{
+                    "gid": "xxx",
+                    "device_sn": "30bd7c6f94fd",
+                    "firmware": "",
+                    "country": "China", 
+                    "region": "Guangdong",
+                    "city": "Guangzhou",
+                    "longitude": 116.30814954222,
+                    "latitude": 40.056885091681,
+                    "updated_at": 1372700873,
+                    "created_at": 1372700873
+                }]
+            }
+
+
 ## 设备历史数据 [/products/{product_key}/devices/{did}/data{?start_ts,end_ts,limit,skip}]
 
 + Parameters
@@ -1021,6 +1080,91 @@ payload 为二进制进行 base64 编码后的结果。
                 }
             }
 
+## 蓝牙设备地理位置分布 [/products/{product_key}/devices/locations_bt{?gid,liveness_start}]
+
++ Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + liveness_start (optional, integer, `1`)
+
+### 获取蓝牙设备地理位置分布 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
+
+    + Body
+
+            {
+                "gid": null,
+                "total": 5600,
+                "location": {
+                    "China": {
+                        "count": 1000,
+                        "Guangdong": {
+                            "count": 500,
+                            "Guangzhou": 60
+                        }
+                    }
+                }
+            }
+
+
+## 蓝牙设备最近地理位置 [/products/{product_key}/devices/last_locations{?device_sn}]
+
++ Parameters
+    + device_sn (required, string, `aacc0011`)
+
+### 获取蓝牙设备最近地理位置 [GET]
+
+最多返回 10 条最近的经纬度信息，按 time 升序排序。
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "meta": {
+                    "total": 10,
+                    "limit": 10,
+                    "skip": 0,
+                    "next": "/v1/products/8f11ee69eb9d4269ba0777ca5e7280f5/devices/last_locations?device_sn=aacc0011&skip=20&limit=20",
+                    "previous": null
+                },
+                "objects": [{
+                    "latitude": 12.12,
+                    "longitude": 11.11,
+                    "time": 1372701873,
+                }, {
+                    "latitude": 12.13,
+                    "longitude": 11.13,
+                    "time": 1372701883,
+                }]
+            }
+
 
 # Group 用户
 
@@ -1178,7 +1322,7 @@ payload 为二进制进行 base64 编码后的结果。
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
-    + type (optional, string, `username`, 查询条件，为 username|phone|email|did|mac)
+    + type (optional, string, `username`, 查询条件，为 username|phone|email|did|mac|device_sn)
     + val (optional, string, `Bob`, 查询条件值)
     + limit (optional, integer, `20`, 每次返回的条数)
     + skip (optional, integer, `0`, 每次跳过的条数)
