@@ -344,6 +344,64 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 
 # Group 设备
 
+## 实时报表 [/products/{product_key}/devices/report/rt{?gid}]
+
++ Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+
+### 获取实时报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+
+            {
+                "gid": null,
+                "count": {
+                    "activated": 5000,
+                    "faulty": 600,
+                    "alert": 400
+                },
+                "location": {
+                    "China": {
+                        "count": {
+                            "activated": 5000,
+                            "faulty": 600,
+                            "alert": 400
+                        },
+                        "Guangdong": {
+                            "count": {
+                                "activated": 5000,
+                                "faulty": 600,
+                                "alert": 400
+                            },
+                            "Guangzhou": {
+                                "count": {
+                                    "activated": 5000,
+                                    "faulty": 600,
+                                    "alert": 400
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+
 ## 激活报表 [/products/{product_key}/devices/report/activation{?gid}]
 
 + Parameters
