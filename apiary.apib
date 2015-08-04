@@ -1231,6 +1231,12 @@ payload 为二进制进行 base64 编码后的结果。
     + did (required, string, `gdGn7PzAYf4VrhnVag5x8D`)
 
 ### 设置数据点 [POST]
+
+* 只能设置可写类型的数据点
+* bool 类型的数据点设置为 true/false
+* enum 类型的数据点设置为枚举的字符串
+* uint8/uint16/uint32 类型的数据点设置为数字
+* binary 类型的数据设置为 hex 类型字符串，如发送一串二进制数据 0x01, 0x02, 0x03, 就写成 "010203"
     
 + Request (application/json)
 
