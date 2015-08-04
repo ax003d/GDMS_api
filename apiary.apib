@@ -42,6 +42,8 @@ HOST: http://enterpriseapi.gizwits.com/v1/
 |         403 |       5302 | device not belong to this product       |
 |         400 |       5303 | device not bound                        |
 |         400 |       5304 | device is disabled                      |
+|         400 |       5401 | attr invalid!                           |
+|         400 |       5402 | datapoint data not found!               |
 
 # Group 产品
 
@@ -1222,6 +1224,65 @@ payload 为二进制进行 base64 编码后的结果。
                     "time": 1372701883
                 }]
             }
+
+# 远程控制设备 [/products/{product_key}/devices/{did}/control]
+
++ Parameters
+    + did (required, string, `gdGn7PzAYf4VrhnVag5x8D`)
+
+### 设置数据点 [POST]
+    
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+            {
+                "attrs": {
+                  "temp": 10
+                }
+            }
+
++ Response 200 (application/json)
+    
+     + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {}
+
+### 发送原始控制指令 [POST]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+    
+            {
+                "raw": [<byte>, <byte>, ...]
+            }
+
++ Response 200 (application/json)
+
+     + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {}
 
 
 # Group 用户
