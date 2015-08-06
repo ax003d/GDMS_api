@@ -44,6 +44,7 @@ HOST: http://enterpriseapi.gizwits.com/v1/
 |         400 |       5304 | device is disabled                      |
 |         400 |       5401 | attr invalid!                           |
 |         400 |       5402 | datapoint data not found!               |
+|         400 |       5403 | send command failed!                    |
 
 # Group 产品
 
@@ -1487,7 +1488,12 @@ auth_src 可以为 qq, baidu, sina。
                     "uid": "4e31bf18f65041e2922bb1d918ed9299",
                     "username": "Bob",
                     "phone": null,
-                    "email": null,
+                    "email": null, 
+                    "name": "Miracsu"  
+                    "gender": "M/F/N",  
+                    "birthday": "2015-08-02",  
+                    "address": "Guangdong xxxxx",
+                    "remark": "remark comment",
                     "created_at": 1372700873,
                     "is_anonymous": false,
                     "auth_src": null
