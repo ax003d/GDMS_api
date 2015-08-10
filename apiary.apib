@@ -1818,10 +1818,18 @@ auth_src 可以为 qq, baidu, sina。
                     "previous": null
                 },
                 "objects": [{
-                    "id": 1,
-                    "version": "V1",
-                    "status": 1,
-                    "created_at": 1372700873
+                    "object":{
+                        "id": 1,
+                        "version": "V1",
+                        "status": 1,
+                        "created_at": 1372700873
+                    },
+                    "from_objects":[
+                        {
+                            "id": 1,
+                            "version": "V2"
+                        }
+                    ]
                 }]
             }
 
@@ -1863,8 +1871,10 @@ auth_src 可以为 qq, baidu, sina。
                 "id":1,
                 "version": "V1",
                 "binary": "id",
-                "binary_name": "file_name"
-                "created_at": 1
+                "binary_name": "bin_name",
+                "status": 1,
+                "device_sn": null,
+                "created_at": 1372700873
             }
 
 ## 蓝牙固件 [/product/{product_key}/bt/firwmare/{id}]
@@ -1891,25 +1901,26 @@ auth_src 可以为 qq, baidu, sina。
     + Body
 
             {
-                "object":{
-                    "id": 1
-                    "status": 1,
-                    "binary": "binary_id",
+                "object":
+                {
+                    "id":1,
+                    "version": "V1",
+                    "binary": "id",
                     "binary_name": "bin_name",
-                    "version": "V2"
+                    "status": 1,
+                    "device_sn": null,
+                    "created_at": 1372700873
                 },
                 "from_objects":[
                     {
-                        "id": 1
-                        "status": 1,
-                        "binary": "binary_id",
-                        "binary_name": "bin_name",
+                        "id": 1,
                         "version": "V2"
                     }
                 ]
             }
 
-### 编辑蓝牙固件(包含文件) [POST]
+
+### 编辑蓝牙固件 [POST]
 
 * 更新内容包含文件请使用POST
 
@@ -1917,20 +1928,20 @@ auth_src 可以为 qq, baidu, sina。
 
     + Header
 
-        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+                Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
     + Body
 
-        ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
-        Content-Disposition: form-data; name="binary"; filename="binary.bin"
-        Content-Type: image/gif
+                ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
+                Content-Disposition: form-data; name="binary"; filename="binary.bin"
+                Content-Type: image/gif
 
 
-        ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
-        Content-Disposition: form-data; name="version"
+                ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
+                Content-Disposition: form-data; name="version"
 
-        V1
-        ------WebKitFormBoundaryVyYZxHJDqJZxUuwu--
+                V1
+                ------WebKitFormBoundaryVyYZxHJDqJZxUuwu--
 
 + Response 200 (application/json)
 
@@ -1947,45 +1958,18 @@ auth_src 可以为 qq, baidu, sina。
                 "version": "V1",
                 "binary": "id",
                 "binary_name": "bin_name",
-                "created_at": 1
+                "status": 1,
+                "device_sn": null,
+                "created_at": 1372700873
             }
 
-### 编辑蓝牙固件 [PUT]
 
-* 不包含文件请使用PUT
+### 更新蓝牙固件 [PUT]
+
 * PUT方法的Request body有如下类型
 * device_sn="sn_xxx"; 设定当前固件只能被指定设备验证。
-* is_verify=true； 设定当前固件为已验证
+* is_verify=1； 设定当前固件为已验证
 * from_ids=[1,2,3]; 设定从哪些固件（ids）升级到当前固件并且当前固件为发布。
-
-+ Request (application/json)
-
-    + Header
-
-        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
-
-    + Body
-
-            {
-                "version": "V2",
-                "status": 1,
-            }
-
-+ Response 200 (application/json)
-
-    + Header
-
-            X-RateLimit-Limit: 60
-            X-RateLimit-Remaining: 56
-            X-RateLimit-Reset: 1372700873
-
-    + Body
-
-            {
-                "id":1,
-                "version": "V1",
-                "created_at": 1
-            }
 
 + Request (application/json)
 
@@ -1999,6 +1983,7 @@ auth_src 可以为 qq, baidu, sina。
                 "device_sn": "sn_xxxx"
             }
 
+
 + Response 200 (application/json)
 
     + Header
@@ -2017,7 +2002,7 @@ auth_src 可以为 qq, baidu, sina。
     + Body
 
             {
-                "is_verify":true
+                "is_verify": 1
             }
 
 + Response 200 (application/json)
@@ -2027,7 +2012,6 @@ auth_src 可以为 qq, baidu, sina。
             X-RateLimit-Limit: 60
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
-
 
 
 + Request (application/json)
@@ -2119,5 +2103,5 @@ auth_src 可以为 qq, baidu, sina。
 
             {
                 "totals": 100,
-                "upgraded": 50,
+                "upgraded": 50
             }
