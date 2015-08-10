@@ -1485,6 +1485,166 @@ payload 为二进制进行 base64 编码后的结果。
                 ]
             }
 
+## 蓝牙用户活跃报表 [/products/{product_key}/users/bt/report/liveness{?gid,cycle,start,end}]
+
++ Parameters
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + cycle (required, string, `date`, 统计周期，可以为 date, week 或 month)
+    + start (required, string, `2015-10-01`, 起始周期，为起始日期、起始周或起始月)
+    + end (required, string, `2015-10-05`, 结束周期，为结束日期、结束周或结束月)
+
+### 蓝牙用户活跃报表 [GET]
+
+日报表最多查询 30 天。
+周报表最多查询 53 周。
+月报表最多查询 12 月。
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
+
+    + Body
+
+            {
+                "gid": null,
+                "cycle": "date",
+                "start": "2015-10-01",
+                "end": "2015-10-02",
+                "data": [
+                    {
+                        "date": "2015-10-01",
+                        "count": 1100,
+                        "China": {
+                            "count": 1100,
+                            "Guangdong": {
+                                "count": 300,
+                                "Guangzhou": 20
+                            }
+                        }
+                    },
+                    {
+                        "date": "2015-10-02",
+                        "count": 1100,
+                        "China": {
+                            "count": 1100,
+                            "Guangdong": {
+                                "count": 300,
+                                "Guangzhou": 20
+                            }
+                        }
+                    }
+                ]
+            }
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
+
+    + Body
+
+            {
+                "gid": null,
+                "cycle": "week",
+                "start": "2015-13",
+                "end": "2015-14",
+                "data": [
+                    {
+                        "week": "2015-13",
+                        "count": 1100,
+                        "China": {
+                            "count": 1100,
+                            "Guangdong": {
+                                "count": 300,
+                                "Guangzhou": 20
+                            }
+                        }
+                    },
+                    {
+                        "week": "2015-14",
+                        "count": 1100,
+                        "China": {
+                            "count": 1100,
+                            "Guangdong": {
+                                "count": 300,
+                                "Guangzhou": 20
+                            }
+                        }
+                    }
+                ]
+            }
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
+
+    + Body
+
+            {
+                "gid": null,
+                "cycle": "month",
+                "start": "2015-01",
+                "end": "2015-02",
+                "data": [
+                    {
+                        "month": "2015-01",
+                        "count": 1100,
+                        "China": {
+                            "count": 1100,
+                            "Guangdong": {
+                                "count": 300,
+                                "Guangzhou": 20
+                            }
+                        }
+                    },
+                    {
+                        "month": "2015-02",
+                        "count": 1100,
+                        "China": {
+                            "count": 1100,
+                            "Guangdong": {
+                                "count": 300,
+                                "Guangzhou": 20
+                            }
+                        }
+                    }
+                ]
+            }
 
 ## 搜索用户 [/products/{product_key}/users/search{?type,val,limit,skip}]
 
