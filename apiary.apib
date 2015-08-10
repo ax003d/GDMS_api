@@ -1781,3 +1781,327 @@ auth_src 可以为 qq, baidu, sina。
                     }
                 }
             }
+
+
+# Group 蓝牙OTA
+
+## 蓝牙固件列表 [/product/{product_key}/bt/firmwares{?limit,skip}]
+
++ Parameters
+    + limit (optional, integer, `100`)
+    + skip (optional, integer, `1`)
+
+### 获取蓝牙固件列表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "meta": {
+                    "total": 100,
+                    "limit": 20,
+                    "skip": 0,
+                    "next": "null",
+                    "previous": null
+                },
+                "objects": [{
+                    "object":{
+                        "id": 1,
+                        "version": "V1",
+                        "status": 1,
+                        "created_at": 1372700873
+                    },
+                    "from_objects":[
+                        {
+                            "id": 1,
+                            "version": "V2"
+                        }
+                    ]
+                }]
+            }
+
+
+## 创建蓝牙固件 [/product/{product_key}/bt/firwmare]
+
+### 创建蓝牙固件 [POST]
+
++ Request (multipart/form-data)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+        ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
+        Content-Disposition: form-data; name="binary"; filename="binary.bin"
+        Content-Type: image/gif
+
+
+        ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
+        Content-Disposition: form-data; name="version"
+
+        V1
+        ------WebKitFormBoundaryVyYZxHJDqJZxUuwu--
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "id":1,
+                "version": "V1",
+                "binary": "id",
+                "binary_name": "bin_name",
+                "status": 1,
+                "device_sn": null,
+                "created_at": 1372700873
+            }
+
+## 蓝牙固件 [/product/{product_key}/bt/firwmare/{id}]
+
++ Parameters
+    + id (required, string, `1`, 固件id)
+
+### 获取蓝牙固件 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "object":
+                {
+                    "id":1,
+                    "version": "V1",
+                    "binary": "id",
+                    "binary_name": "bin_name",
+                    "status": 1,
+                    "device_sn": null,
+                    "created_at": 1372700873
+                },
+                "from_objects":[
+                    {
+                        "id": 1,
+                        "version": "V2"
+                    }
+                ]
+            }
+
+
+### 编辑蓝牙固件 [POST]
+
+* 更新内容包含文件请使用POST
+
++ Request (multipart/form-data)
+
+    + Header
+
+                Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+                ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
+                Content-Disposition: form-data; name="binary"; filename="binary.bin"
+                Content-Type: image/gif
+
+
+                ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
+                Content-Disposition: form-data; name="version"
+
+                V1
+                ------WebKitFormBoundaryVyYZxHJDqJZxUuwu--
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "id":1,
+                "version": "V1",
+                "binary": "id",
+                "binary_name": "bin_name",
+                "status": 1,
+                "device_sn": null,
+                "created_at": 1372700873
+            }
+
+
+### 更新蓝牙固件 [PUT]
+
+* PUT方法的Request body有如下类型
+* device_sn="sn_xxx"; 设定当前固件只能被指定设备验证。
+* is_verify=1； 设定当前固件为已验证
+* from_ids=[1,2,3]; 设定从哪些固件（ids）升级到当前固件并且当前固件为发布。
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+            {
+                "device_sn": "sn_xxxx"
+            }
+
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+            {
+                "is_verify": 1
+            }
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+            {
+                "from_ids": [1, 2, 3]
+            }
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+
+
+### 删除蓝牙固件 [DELETE]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 204 (application/json)
+
+
+## 蓝牙固件下载 [/product/{product_key}/bt/firmware/file{?id}]
+
++ Parameters
+    + id (required, integer, `1`, 固件id)
+
+### 下载 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+
++ Response 200 (application/octet-stream)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Content-Type: application/octet-stream
+            Content-Disposition: attachment; filename=xxxx.bin
+            Content-Length: 1000
+            Gizwits-Firmware-MD5: SAD8DS
+            Gizwits-Firmware-Version: V1
+
+    + Body
+
+        binary
+
+## 升级设备数 [/product/{product_key}/bt/devices/upgraded{?to_id}]
+
++ Parameters
+    + to_id (required, integer, `1`, 固件id)
+
+### 获取升级设备数 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "totals": 100,
+                "upgraded": 50
+            }
