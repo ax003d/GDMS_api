@@ -104,6 +104,50 @@ HOST: http://enterpriseapi.gizwits.com/v1/
             {
             }
 
+## 产品关联应用信息 [/product/{product_key}/application{?limit,skip}]
+
++ Parameters
+    + limit (optional, integer, `20`)
+    + skip (optional, integer, `1`)
+
+### 获取产品关联的app信息 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "meta": {
+                    "total": 100,
+                    "limit": 20,
+                    "skip": 0,
+                    "next": "null",
+                    "previous": null
+                },
+                "objects": [{
+                        "name": "show1",
+                        "appid": "11ddb654c8d2485c846cb6c8f44557a2",
+                        "secret": "2da75b8e050349aa841b43efcb24e581"
+                    },
+                    {
+                        "name": "show2",
+                        "appid": "11ddb654c8d2485c846cb6c8f44557a2",
+                        "secret": "2da75b8e050349aa841b43efcb24e581"
+                    }]
+            }
+
 ## 授权 [/products/{product_key}/access_token]
 
 ### 获取 token [POST]
@@ -2006,4 +2050,151 @@ auth_src 可以为 qq, baidu, sina。
                         }
                     }
                 }
+            }
+
+## 自定义事件报表 [/product/{product_key}/bt/custom_event{?limit,skip}]
+
++ Parameters
+    + cycle (required, string, `date`, 统计周期，可以为 date|week|month)
+    + start (required, string, `2015-10-01`, 起始周期，为起始日期、起始周或起始月)
+    + end (required, string, `2015-10-05`, 结束周期，为结束日期、结束周或结束月)
+    + event_id (optional, string, `abcdef`, 事件id)
+
+### 获取自定义事件历史报表 [GET]
+
+日报表最多查询 30 天。
+周报表最多查询 53 周。
+月报表最多查询 12 月。
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+
+            {
+                "cycle": "date",
+                "start": "2015-10-01",
+                "end": "2015-10-02",
+                "data": [
+                    {
+                        "date": "2015-10-01",
+                        "count": 1100,
+                        "events": [
+                        {
+                            "name": "event1",
+                            "count": 30
+                        }]
+                    },
+                    {
+                        "date": "2015-10-02",
+                        "count": 1100,
+                        "events": [
+                        {
+                            "name": "event1",
+                            "count": 30
+                        }]
+                    }
+                ]
+            }
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+
+            {
+                "cycle": "week",
+                "start": "2015-13",
+                "end": "2015-14",
+                "data": [
+                    {
+                        "week": "2015-13",
+                        "count": 1100,
+                        "events": [
+                        {
+                            "name": "event1",
+                            "count": 30
+                        }]
+                    },
+                    {
+                        "week": "2015-14",
+                        "count": 1100,
+                        "events": [
+                        {
+                            "name": "event1",
+                            "count": 30
+                        }]
+                    }
+                ]
+            }
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+
+            {
+                "gid": null,
+                "cycle": "month",
+                "start": "2015-01",
+                "end": "2015-02",
+                "data": [
+                    {
+                        "month": "2015-01",
+                        "count": 1100,
+                        "events": [
+                        {
+                            "name": "event1",
+                            "count": 30
+                        }]
+                    },
+                    {
+                        "month": "2015-02",
+                        "count": 1100,
+                        "events": [
+                        {
+                            "name": "event1",
+                            "count": 30
+                        }]
+                    }
+                ]
             }
