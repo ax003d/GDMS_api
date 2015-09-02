@@ -1785,11 +1785,12 @@ auth_src 可以为 qq, baidu, sina。
 
 # Group 蓝牙OTA
 
-## 蓝牙固件列表 [/product/{product_key}/bt/firmwares{?limit,skip}]
+## 蓝牙固件列表 [/product/{product_key}/bt/firmwares{?limit,skip,status}]
 
 + Parameters
     + limit (optional, integer, `100`)
     + skip (optional, integer, `1`)
+    + status (optional, integer, `3`)
 
 ### 获取蓝牙固件列表 [GET]
 
@@ -1834,7 +1835,7 @@ auth_src 可以为 qq, baidu, sina。
             }
 
 
-## 创建蓝牙固件 [/product/{product_key}/bt/firwmare]
+## 创建蓝牙固件 [/product/{product_key}/bt/firmware]
 
 ### 创建蓝牙固件 [POST]
 
@@ -1877,7 +1878,7 @@ auth_src 可以为 qq, baidu, sina。
                 "created_at": 1372700873
             }
 
-## 蓝牙固件 [/product/{product_key}/bt/firwmare/{uuid}]
+## 蓝牙固件 [/product/{product_key}/bt/firmware/{uuid}]
 
 + Parameters
     + uuid (required, string, `xxxx`, 固件id)
@@ -1967,9 +1968,15 @@ auth_src 可以为 qq, baidu, sina。
 ### 更新蓝牙固件 [PUT]
 
 * PUT方法的Request body有如下类型
-* device_sn="sn_xxx"; 设定当前固件只能被指定设备验证。
-* status=1； 设定当前固件状态,2：已验证，3：已发布
-* from_ids=["uuid1","uuid2","uuid3"]; 设定从哪些固件（ids）升级到当前固件并且当前固件为发布。
+* device_sn="sn_xxx"; 设定当前固件只能被指定设备验证。（当前固件必须是未验证状态[status=1]才可以成功）
+* status=2； 设定当前固件状态2：已验证，3:已发布。（当前固件不能是已发布状态）
+* from_uuids=["uuid1","uuid2","uuid3"]; 设定从哪些固件（ids）升级到当前固件并且当前固件为发布。
+* from_uuids补充说明如下
+* 当前固件必须是已验证状态[status=2]并且
+* 从未设定过form_uuids
+* 并且所有的form_uuids都是已发布的固件
+* 并且from_uuids中不包含当前uuid 才能成功
+
 
 + Request (application/json)
 
@@ -1992,6 +1999,26 @@ auth_src 可以为 qq, baidu, sina。
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
 
+    + Body
+
+            {
+                "object":
+                {
+                    "uuid":"uuid1",
+                    "version": "V1",
+                    "binary": "id",
+                    "binary_name": "bin_name",
+                    "status": 1,
+                    "device_sn": null,
+                    "created_at": 1372700873
+                },
+                "from_objects":[
+                    {
+                        "uuid": "uuid1",
+                        "version": "V2"
+                    }
+                ]
+            }
 
 + Request (application/json)
 
@@ -2013,6 +2040,26 @@ auth_src 可以为 qq, baidu, sina。
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
 
+    + Body
+
+            {
+                "object":
+                {
+                    "uuid":"uuid1",
+                    "version": "V1",
+                    "binary": "id",
+                    "binary_name": "bin_name",
+                    "status": 1,
+                    "device_sn": null,
+                    "created_at": 1372700873
+                },
+                "from_objects":[
+                    {
+                        "uuid": "uuid1",
+                        "version": "V2"
+                    }
+                ]
+            }
 
 + Request (application/json)
 
@@ -2034,6 +2081,26 @@ auth_src 可以为 qq, baidu, sina。
             X-RateLimit-Remaining: 56
             X-RateLimit-Reset: 1372700873
 
+    + Body
+
+            {
+                "object":
+                {
+                    "uuid":"uuid1",
+                    "version": "V1",
+                    "binary": "id",
+                    "binary_name": "bin_name",
+                    "status": 1,
+                    "device_sn": null,
+                    "created_at": 1372700873
+                },
+                "from_objects":[
+                    {
+                        "uuid": "uuid1",
+                        "version": "V2"
+                    }
+                ]
+            }
 
 
 ### 删除蓝牙固件 [DELETE]
