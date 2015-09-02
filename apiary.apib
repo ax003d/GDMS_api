@@ -1819,14 +1819,14 @@ auth_src 可以为 qq, baidu, sina。
                 },
                 "objects": [{
                     "object":{
-                        "id": 1,
+                        "uuid": "uuid1",
                         "version": "V1",
                         "status": 1,
                         "created_at": 1372700873
                     },
                     "from_objects":[
                         {
-                            "id": 1,
+                            "uuid": "uuid1",
                             "version": "V2"
                         }
                     ]
@@ -1868,7 +1868,7 @@ auth_src 可以为 qq, baidu, sina。
     + Body
 
             {
-                "id":1,
+                "uuid":"uuid1",
                 "version": "V1",
                 "binary": "id",
                 "binary_name": "bin_name",
@@ -1877,10 +1877,10 @@ auth_src 可以为 qq, baidu, sina。
                 "created_at": 1372700873
             }
 
-## 蓝牙固件 [/product/{product_key}/bt/firwmare/{id}]
+## 蓝牙固件 [/product/{product_key}/bt/firwmare/{uuid}]
 
 + Parameters
-    + id (required, string, `1`, 固件id)
+    + uuid (required, string, `xxxx`, 固件id)
 
 ### 获取蓝牙固件 [GET]
 
@@ -1903,7 +1903,7 @@ auth_src 可以为 qq, baidu, sina。
             {
                 "object":
                 {
-                    "id":1,
+                    "uuid":"uuid1",
                     "version": "V1",
                     "binary": "id",
                     "binary_name": "bin_name",
@@ -1913,7 +1913,7 @@ auth_src 可以为 qq, baidu, sina。
                 },
                 "from_objects":[
                     {
-                        "id": 1,
+                        "uuid": "uuid1",
                         "version": "V2"
                     }
                 ]
@@ -1954,7 +1954,7 @@ auth_src 可以为 qq, baidu, sina。
     + Body
 
             {
-                "id":1,
+                "uuid":"uuid1",
                 "version": "V1",
                 "binary": "id",
                 "binary_name": "bin_name",
@@ -1968,8 +1968,8 @@ auth_src 可以为 qq, baidu, sina。
 
 * PUT方法的Request body有如下类型
 * device_sn="sn_xxx"; 设定当前固件只能被指定设备验证。
-* is_verify=1； 设定当前固件为已验证
-* from_ids=[1,2,3]; 设定从哪些固件（ids）升级到当前固件并且当前固件为发布。
+* status=1； 设定当前固件状态,2：已验证，3：已发布
+* from_ids=["uuid1","uuid2","uuid3"]; 设定从哪些固件（ids）升级到当前固件并且当前固件为发布。
 
 + Request (application/json)
 
@@ -2002,7 +2002,7 @@ auth_src 可以为 qq, baidu, sina。
     + Body
 
             {
-                "is_verify": 1
+                "status": 1
             }
 
 + Response 200 (application/json)
@@ -2023,7 +2023,7 @@ auth_src 可以为 qq, baidu, sina。
     + Body
 
             {
-                "from_ids": [1, 2, 3]
+                "from_uuids": ["uuid1", "uuid2", "uuid3"]
             }
 
 + Response 200 (application/json)
@@ -2047,10 +2047,10 @@ auth_src 可以为 qq, baidu, sina。
 + Response 204 (application/json)
 
 
-## 蓝牙固件下载 [/product/{product_key}/bt/firmware/file{?id}]
+## 蓝牙固件下载 [/product/{product_key}/bt/firmware/file{?uuid}]
 
 + Parameters
-    + id (required, integer, `1`, 固件id)
+    + uuid (required, string, `uuid1`, 固件id)
 
 ### 下载 [GET]
 
@@ -2078,10 +2078,10 @@ auth_src 可以为 qq, baidu, sina。
 
         binary
 
-## 升级设备数 [/product/{product_key}/bt/devices/upgraded{?to_id}]
+## 升级设备数 [/product/{product_key}/bt/devices/upgraded{?to_uuid}]
 
 + Parameters
-    + to_id (required, integer, `1`, 固件id)
+    + to_uuid (required, string, `uuid1`, 固件id)
 
 ### 获取升级设备数 [GET]
 
