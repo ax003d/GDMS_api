@@ -46,6 +46,14 @@ HOST: http://enterpriseapi.gizwits.com/v1/
 |         400 |       5402 | datapoint data not found!               |
 |         400 |       5403 | send command failed!                    |
 
+# 企业响应头部信息
+
+## 返回响应配额头部信息说明
+
+* X-RateLimit-Limit: 60  # 代表企业api可以使用的配额数
+* X-RateLimit-Remaining: 56 # 代表调用企业api剩余可用的配额数
+* X-RateLimit-Reset: 1372700873 # 代表最近调用企业api接口的使用配额时间戳
+
 # Group 产品
 
 ## 关联产品 [/products/{product_key}/association]
