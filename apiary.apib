@@ -457,7 +457,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             }
 
 
-## 激活报表 [/products/{product_key}/devices/report/activation{?gid}]
+## 大数据激活报表 [/products/{product_key}/devices/report/activation{?gid}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -671,7 +671,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
                 ]
             }
 
-## 活跃设备报表 [/products/{product_key}/devices/report/liveness{?gid}]
+## 大数据活跃设备报表 [/products/{product_key}/devices/report/liveness{?gid}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -882,7 +882,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
             }
 
 
-## 搜索设备 [/products/{product_key}/devices/search{?gid,country,region,city,is_online,is_faulty,is_alert,type,val,liveness_start,limit,skip}]
+## 实时搜索设备 [/products/{product_key}/devices/search{?gid,country,region,city,is_online,is_faulty,is_alert,type,val,liveness_start,limit,skip}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -943,7 +943,7 @@ mac 地址忽略大小写。
                 }]
             }
 
-## 搜索蓝牙设备 [/products/{product_key}/devices/search_bt{?gid,country,region,city,type,val,liveness_start,limit,skip}]
+## 实时搜索蓝牙设备 [/products/{product_key}/devices/search_bt{?gid,country,region,city,type,val,liveness_start,limit,skip}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -1001,7 +1001,7 @@ device_sn 地址忽略大小写。
             }
 
 
-## 设备历史数据 [/products/{product_key}/devices/{did}/data{?start_ts,end_ts,limit,skip}]
+## 实时设备历史数据 [/products/{product_key}/devices/{did}/data{?start_ts,end_ts,limit,skip}]
 
 + Parameters
     + did (required, string, `gdGn7PzAYf4VrhnVag5x8D`)
@@ -1053,7 +1053,7 @@ device_sn 地址忽略大小写。
                 }]
             }
 
-## 设备上下线记录 [/products/{product_key}/devices/{did}/online{?start_ts,end_ts,limit,skip}]
+## 实时设备上下线记录 [/products/{product_key}/devices/{did}/online{?start_ts,end_ts,limit,skip}]
 
 + Parameters
     + did (required, string, `gdGn7PzAYf4VrhnVag5x8D`)
@@ -1134,7 +1134,7 @@ offline_sending_data_size_overflow：客户端发送信息的流量过大，断�
             }
 
 
-## 设备通信日志 [/products/{product_key}/devices/{did}/cmd{?start_ts,end_ts,limit,skip}]
+## 实时设备通信日志 [/products/{product_key}/devices/{did}/cmd{?start_ts,end_ts,limit,skip}]
 
 + Parameters
     + did (optional, string, `gdGn7PzAYf4VrhnVag5x8D`)
@@ -1183,7 +1183,7 @@ payload 为二进制进行 base64 编码后的结果。
                 }]
             }
 
-## 设备地理位置分布 [/products/{product_key}/devices/locations{?gid,is_online,is_faulty,is_alert}]
+## 实时设备地理位置分布 [/products/{product_key}/devices/locations{?gid,is_online,is_faulty,is_alert}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -1225,7 +1225,7 @@ payload 为二进制进行 base64 编码后的结果。
                 }
             }
 
-## 蓝牙设备地理位置分布 [/products/{product_key}/devices/locations_bt{?gid,liveness_start}]
+## 实时蓝牙设备地理位置分布 [/products/{product_key}/devices/locations_bt{?gid,liveness_start}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -1266,7 +1266,7 @@ payload 为二进制进行 base64 编码后的结果。
             }
 
 
-## 蓝牙设备最近地理位置 [/products/{product_key}/devices/last_locations{?device_sn}]
+## 实时蓝牙设备最近地理位置 [/products/{product_key}/devices/last_locations{?device_sn}]
 
 + Parameters
     + device_sn (required, string, `aacc0011`)
@@ -1378,7 +1378,7 @@ payload 为二进制进行 base64 编码后的结果。
 
 # Group 用户
 
-## 用户总数报表 [/products/{product_key}/users/report/total{?gid}]
+## 大数据用户总数报表 [/products/{product_key}/users/report/total{?gid}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -1408,7 +1408,7 @@ payload 为二进制进行 base64 编码后的结果。
                 "total": 5600
             }
 
-## 用户新增报表 [/products/{product_key}/users/report/new{?gid,cycle,start,end}]
+## 大数据用户新增报表 [/products/{product_key}/users/report/new{?gid,cycle,start,end}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -1581,7 +1581,7 @@ payload 为二进制进行 base64 编码后的结果。
                 ]
             }
 
-## 蓝牙用户活跃报表 [/products/{product_key}/users/report/liveness_bt{?gid,cycle,start,end}]
+## 大数据蓝牙用户活跃报表 [/products/{product_key}/users/report/liveness_bt{?gid,cycle,start,end}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -1754,7 +1754,7 @@ payload 为二进制进行 base64 编码后的结果。
                 ]
             }
 
-## 搜索用户 [/products/{product_key}/users/search{?type,val,limit,skip}]
+## 实时搜索用户 [/products/{product_key}/users/search{?type,val,limit,skip}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -1810,7 +1810,7 @@ auth_src 可以为 qq, baidu, sina。
                 }]
             }
 
-# Group 故障与报警
+# Group 大数据故障与报警
 
 ## 故障设备台数报表 [/products/{product_key}/fault/report/devices{?gid}]
 
@@ -2092,7 +2092,7 @@ auth_src 可以为 qq, baidu, sina。
                 }
             }
 
-## 自定义事件报表 [/product/{product_key}/bt/custom_event{?limit,skip}]
+## 实时自定义事件报表 [/product/{product_key}/bt/custom_event{?limit,skip}]
 
 + Parameters
     + cycle (required, string, `date`, 统计周期，可以为 date|week|month)
