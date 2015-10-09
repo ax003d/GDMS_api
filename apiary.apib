@@ -1001,12 +1001,13 @@ device_sn 地址忽略大小写。
             }
 
 
-## 设备历史数据（实时） [/products/{product_key}/devices/{did}/data{?start_ts,end_ts,limit,skip}]
+## 设备历史数据(实时) [/products/{product_key}/devices/{did}/data{?start_ts,end_ts,attrs,limit,skip}]
 
 + Parameters
     + did (required, string, `gdGn7PzAYf4VrhnVag5x8D`)
     + start_ts (optional, integer, `1372700873`)
     + end_ts (optional, integer, `1372701873`)
+    + attrs (optional, string, `longitude,latitude`)
     + limit (optional, integer, `20`)
     + skip (optional, integer, `0`)
 
@@ -1041,14 +1042,14 @@ device_sn 地址忽略大小写。
                 "objects": [{
                     "ts": 1372701873,
                     "attrs": {
-                        "temp": 20,
-                        "humi": 60
+                        "longitude": 23.11,
+                        "latitude": 112.55
                     }
                 }, {
                     "ts": 1372701880,
                     "attrs": {
-                        "temp": 20,
-                        "humi": 60
+                        "longitude": 23.11,
+                        "latitude": 112.55
                     }
                 }]
             }
