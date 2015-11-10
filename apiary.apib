@@ -1001,7 +1001,7 @@ device_sn 地址忽略大小写。
             }
 
 
-## 设备历史数据（实时） [/products/{product_key}/devices/{did}/data{?start_ts,end_ts,limit,skip}]
+## 设备历史数据（实时） [/products/{product_key}/devices/{did}/data{?start_ts,end_ts,attrs,limit,skip}]
 
 + Parameters
     + did (required, string, `gdGn7PzAYf4VrhnVag5x8D`)
@@ -1379,7 +1379,7 @@ payload 为二进制进行 base64 编码后的结果。
 
 # Group 用户
 
-## 用户总数报表（大数据） [/products/{product_key}/users/report/total{?gid}]
+## 用户总数报表（实时） [/products/{product_key}/users/report/total{?gid}]
 
 + Parameters
     + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
@@ -2093,7 +2093,7 @@ auth_src 可以为 qq, baidu, sina。
                 }
             }
 
-## 自定义事件报表（实时） [/product/{product_key}/bt/custom_event{?limit,skip}]
+## 自定义事件报表（实时） [/product/{product_key}/bt/custom_event{?cycle,start,end,event_id}]
 
 + Parameters
     + cycle (required, string, `date`, 统计周期，可以为 date|week|month)
@@ -2238,4 +2238,394 @@ auth_src 可以为 qq, baidu, sina。
                         }]
                     }
                 ]
+            }
+
+# Group 蓝牙OTA
+
+## 蓝牙固件列表 [/product/{product_key}/bt/firmwares{?limit,skip,status}]
+
++ Parameters
+    + limit (optional, integer, `100`)
+    + skip (optional, integer, `1`)
+    + status (optional, integer, `3`)
+
+### 获取蓝牙固件列表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "meta": {
+                    "total": 100,
+                    "limit": 20,
+                    "skip": 0,
+                    "next": "null",
+                    "previous": null
+                },
+                "objects": [{
+                    "object":{
+                        "uuid": "uuid1",
+                        "version": "V1",
+                        "status": 1,
+                        "created_at": 1372700873
+                    },
+                    "from_objects":[
+                        {
+                            "uuid": "uuid1",
+                            "version": "V2"
+                        }
+                    ]
+                }]
+            }
+
+
+## 创建蓝牙固件 [/product/{product_key}/bt/firmware]
+
+### 创建蓝牙固件 [POST]
+
++ Request (multipart/form-data)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+        ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
+        Content-Disposition: form-data; name="binary"; filename="binary.bin"
+        Content-Type: image/gif
+
+
+        ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
+        Content-Disposition: form-data; name="version"
+
+        V1
+        ------WebKitFormBoundaryVyYZxHJDqJZxUuwu--
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "uuid":"uuid1",
+                "version": "V1",
+                "binary": "id",
+                "binary_name": "bin_name",
+                "status": 1,
+                "device_sn": null,
+                "created_at": 1372700873
+            }
+
+## 蓝牙固件 [/product/{product_key}/bt/firmware/{uuid}]
+
++ Parameters
+    + uuid (required, string, `xxxx`, 固件id)
+
+### 获取蓝牙固件 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "object":
+                {
+                    "uuid":"uuid1",
+                    "version": "V1",
+                    "binary": "id",
+                    "binary_name": "bin_name",
+                    "status": 1,
+                    "device_sn": null,
+                    "created_at": 1372700873
+                },
+                "from_objects":[
+                    {
+                        "uuid": "uuid1",
+                        "version": "V2"
+                    }
+                ]
+            }
+
+
+### 编辑蓝牙固件 [POST]
+
+* 更新内容包含文件请使用POST
+
++ Request (multipart/form-data)
+
+    + Header
+
+                Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+                ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
+                Content-Disposition: form-data; name="binary"; filename="binary.bin"
+                Content-Type: image/gif
+
+
+                ------WebKitFormBoundaryVyYZxHJDqJZxUuwu
+                Content-Disposition: form-data; name="version"
+
+                V1
+                ------WebKitFormBoundaryVyYZxHJDqJZxUuwu--
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "uuid":"uuid1",
+                "version": "V1",
+                "binary": "id",
+                "binary_name": "bin_name",
+                "status": 1,
+                "device_sn": null,
+                "created_at": 1372700873
+            }
+
+
+### 更新蓝牙固件 [PUT]
+
+* PUT方法的Request body有如下类型
+* device_sn="sn_xxx"; 设定当前固件只能被指定设备验证。（当前固件必须是未验证状态[status=1]才可以成功）
+* status=2； 设定当前固件状态2：已验证，3:已发布。（当前固件不能是已发布状态）
+* from_uuids=["uuid1","uuid2","uuid3"]; 设定从哪些固件（ids）升级到当前固件并且当前固件为发布。
+* from_uuids补充说明如下
+* 当前固件必须是已验证状态[status=2]并且
+* 从未设定过form_uuids
+* 并且所有的form_uuids都是已发布的固件
+* 并且from_uuids中不包含当前uuid 才能成功
+
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+            {
+                "device_sn": "sn_xxxx"
+            }
+
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "object":
+                {
+                    "uuid":"uuid1",
+                    "version": "V1",
+                    "binary": "id",
+                    "binary_name": "bin_name",
+                    "status": 1,
+                    "device_sn": null,
+                    "created_at": 1372700873
+                },
+                "from_objects":[
+                    {
+                        "uuid": "uuid1",
+                        "version": "V2"
+                    }
+                ]
+            }
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+            {
+                "status": 1
+            }
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "object":
+                {
+                    "uuid":"uuid1",
+                    "version": "V1",
+                    "binary": "id",
+                    "binary_name": "bin_name",
+                    "status": 1,
+                    "device_sn": null,
+                    "created_at": 1372700873
+                },
+                "from_objects":[
+                    {
+                        "uuid": "uuid1",
+                        "version": "V2"
+                    }
+                ]
+            }
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+            {
+                "from_uuids": ["uuid1", "uuid2", "uuid3"]
+            }
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "object":
+                {
+                    "uuid":"uuid1",
+                    "version": "V1",
+                    "binary": "id",
+                    "binary_name": "bin_name",
+                    "status": 1,
+                    "device_sn": null,
+                    "created_at": 1372700873
+                },
+                "from_objects":[
+                    {
+                        "uuid": "uuid1",
+                        "version": "V2"
+                    }
+                ]
+            }
+
+
+### 删除蓝牙固件 [DELETE]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 204 (application/json)
+
+
+## 蓝牙固件下载 [/product/{product_key}/bt/firmware/file{?uuid}]
+
++ Parameters
+    + uuid (required, string, `uuid1`, 固件id)
+
+### 下载 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+
++ Response 200 (application/octet-stream)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Content-Type: application/octet-stream
+            Content-Disposition: attachment; filename=xxxx.bin
+            Content-Length: 1000
+            Gizwits-Firmware-MD5: SAD8DS
+            Gizwits-Firmware-Version: V1
+
+    + Body
+
+        binary
+
+## 升级设备数 [/product/{product_key}/bt/devices/upgraded{?to_uuid}]
+
++ Parameters
+    + to_uuid (required, string, `uuid1`, 固件id)
+
+### 获取升级设备数 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+
+            {
+                "totals": 100,
+                "upgraded": 50
             }
