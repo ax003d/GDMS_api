@@ -2727,3 +2727,125 @@ unit include [HOURS,DAYS,WEEKS,MONTHS]
                     "datetime": xxx
                 }]
             }
+
+## 产品聚合接口 [/product/{product_key}/agg_data{?start_ts,end_ts,aggregator,attrs}]
+
++ Parameters
+    + start_ts (required, number, `1447919887000`, 开始日期)
+    + end_ts (required, number, `1447919895000`, 结束日期)
+    + aggregator (required, string, `sum`, 聚合可以选择sum|avg)
+    + attrs (required, string, `Cartridge_Life_1,mode`)
+    + unit (required, string, `DAYS`)
+    + unit_interval (required, number, `1`, 默认为1)
+
+### 获取聚合数据 [GET]
+
+* start_ts 和 end_ts 为带毫秒的整型时间戳。
+* aggregator 包括[sum, avg]
+* unit 包括[HOURS, DAYS, WEEK, MONTHS]
+* attrs只能为数字和枚举的数据点
+
+返回结果的格式：
+
+* type包括[uint, enum],uint代表返回的是数字型的数据点结果，enum代表枚举型的数据点结果
+
+datetime按unit返回的格式是：
+
+* HOURS 返回的日期格式是2015071012, 代表年月日时
+* DAYS 返回的日期格式是20150710, 代表年月日
+* WEEKS 返回的日期格式是201525, 代表年周
+* MONTHS 返回的日期格式是201507，代表年月 
+
+
+枚举值与数据值的聚合区别
+
+* 枚举值是对enum里的聚合value发送次数的累加，如满水：5次，冲洗：6次,是对每个枚举类型值的次数统计
+* 数值类型的聚合是对发送值的累加统计
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+    + Body
+    
+    {
+        "query": {
+            "start_ts": "20150813",
+            "end_ts": "20150814",
+            "attrs": "sum",
+            "unit": "DAYS",
+            "unit_interval": 1
+        },
+        "data": [{
+            "datetime": "20150813",
+            "location": {
+                "Guangdong": {
+                    "Cartridge_Life_1": {
+                        "type": "uint",
+                        "value": 33.12
+                    },
+                    "mode": {
+                        "type": "enum",
+                        "value": {
+                            "满水": 15,
+                            "去水": 16
+                        }
+                    }
+                },
+                "Shangxi": {
+                    "Cartridge_Life_1": {
+                        "type": "uint",
+                        "value": 35.12
+                    },
+                    "mode": {
+                        "type": "enum",
+                        "value": {
+                            "满水": 22,
+                            "去水": 33
+                        }
+                    }
+                }
+            }   
+        },
+        {
+            "datetime": "20150814",
+            "location": {
+                "Guangdong": {
+                    "Cartridge_Life_1": {
+                        "type": "uint",
+                        "value": 33.88
+                    },
+                    "mode": {
+                        "type": "enum",
+                        "value": {
+                            "满水": 23,
+                            "去水": 44
+                        }
+                    }
+                },
+                "Shangxi": {
+                    "Cartridge_Life_1": {
+                        "type": "uint",
+                        "value": 37.12
+                    },
+                    "mode": {
+                        "type": "enum",
+                        "value": {
+                            "满水": 11,
+                            "去水": 55
+                        }
+                    }
+                }
+            }
+            
+        }]
+    }
