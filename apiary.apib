@@ -1406,6 +1406,69 @@ payload 为二进制进行 base64 编码后的结果。
 
             {}
 
+## 设备绑定功能 [/devices/bindings]
+
+### 绑定设备 [POST]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+        {"uid": "uid1",
+         "appid": "did1",
+         "dids": ["did1", "did2"]}
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+
+            {
+                "success": ["abc", "add"],
+                "failed": ["adad", "ee"]
+            }
+
+### 解除绑定 [DELETE]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+    + Body
+
+       {"uid": "uid1",
+         "appid": "did1",
+         "dids": ["did1", "did2"]}
+
++ Response 200 (application/json)
+    
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+
+            {
+                "success": ["abc", "add"],
+                "failed": ["adad", "ee"]
+            }
 
 # Group 用户
 
