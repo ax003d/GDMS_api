@@ -2863,16 +2863,16 @@ unit include [HOURS,DAYS,WEEKS,MONTHS]
 
 + Parameters
     + start_ts (required, number, `1447919887000`, 开始日期)
-    + end_ts (required, number, `1447919895000`, 结束日期)
+    + end_ts (optional, number, `1447919895000`, 结束日期)
     + aggregator (required, string, `sum`, 聚合可以选择sum|avg)
     + attrs (required, string, `Cartridge_Life_1,mode`)
     + unit (required, string, `DAYS`)
-    + unit_interval (required, number, `1`, 默认为1)
+    + unit_interval (optional, number, `1`, 默认为1)
 
 ### 获取聚合数据 [GET]
 
 * start_ts 和 end_ts 为带毫秒的整型时间戳。
-* aggregator 包括[sum, avg]
+* aggregator 包括[sum, avg, min, max]
 * unit 包括[HOURS, DAYS, WEEK, MONTHS]
 * attrs只能为数字和枚举的数据点
 
