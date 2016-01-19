@@ -210,6 +210,81 @@ HOST: http://enterpriseapi.gizwits.com/v1/
                 "type": "WiFi" | "Bluetooth"
             }
 
+## 产品数据点接口 [/products/{product_key}/datapoint]
+
+### 获取产品数据点 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+    + Body
+    
+    {
+        "name": "wwaawww",
+        "entities": [
+            {
+                "attrs": [
+                    {
+                        "display_name": "aa",
+                        "name": "aa",
+                        "data_type": "bool",
+                        "position": {
+                            "bit_offset": 0,
+                            "len": 1,
+                            "unit": "bit",
+                            "byte_offset": 0
+                        },
+                        "type": "status_readonly",
+                        "id": 0,
+                        "desc": "....."
+                    }
+                ],
+                "display_name": "机智云开发套件",
+                "id": 0,
+                "name": "entity0"
+            }
+        ],
+        "protocolType": "standard",
+        "product_key": "80c466c16d9a4c10abe33b1d4b932d6d",
+        "packetVersion": "0x00000004",
+        "ui": {
+            "object": {
+                "version": 4,
+                "showEditButton": false
+            },
+            "sections": [
+                {
+                    "elements": [
+                        {
+                            "boolValue": false,
+                            "object": {
+                                "action": "entity0",
+                                "bind": [
+                                    "entity0.aa"
+                                ],
+                                "perm": "N"
+                            },
+                            "type": "QBooleanElement",
+                            "key": "entity0.aa",
+                            "title": "aa"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+
+
 # Group 企业平台登录（内部）
 
 ## 企业平台登录验证 [/enterprises/verfiy]
@@ -2980,78 +3055,4 @@ datetime按unit返回的格式是：
             }
             
         }]
-    }
-
-## 产品数据点接口 [/products/{product_key}/datapoint]
-
-### 获取产品数据点 [GET]
-
-+ Request (application/json)
-
-    + Header
-
-        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
-
-+ Response 200 (application/json)
-
-    + Header
-
-            X-RateLimit-Limit: 60
-            X-RateLimit-Remaining: 56
-            X-RateLimit-Reset: 1372700873
-    + Body
-    
-    {
-        "name": "wwaawww",
-        "entities": [
-            {
-                "attrs": [
-                    {
-                        "display_name": "aa",
-                        "name": "aa",
-                        "data_type": "bool",
-                        "position": {
-                            "bit_offset": 0,
-                            "len": 1,
-                            "unit": "bit",
-                            "byte_offset": 0
-                        },
-                        "type": "status_readonly",
-                        "id": 0,
-                        "desc": "....."
-                    }
-                ],
-                "display_name": "机智云开发套件",
-                "id": 0,
-                "name": "entity0"
-            }
-        ],
-        "protocolType": "standard",
-        "product_key": "80c466c16d9a4c10abe33b1d4b932d6d",
-        "packetVersion": "0x00000004",
-        "ui": {
-            "object": {
-                "version": 4,
-                "showEditButton": false
-            },
-            "sections": [
-                {
-                    "elements": [
-                        {
-                            "boolValue": false,
-                            "object": {
-                                "action": "entity0",
-                                "bind": [
-                                    "entity0.aa"
-                                ],
-                                "perm": "N"
-                            },
-                            "type": "QBooleanElement",
-                            "key": "entity0.aa",
-                            "title": "aa"
-                        }
-                    ]
-                }
-            ]
-        }
     }
