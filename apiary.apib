@@ -3059,15 +3059,20 @@ datetime按unit返回的格式是：
 
 # Group 运营系统报表
 
-## 通用报表接口 [/report/products/{product_key}/datas_info{?data_type,cycle,start,end}]
+## 通用历史报表接口 [/report/products/{product_key}/datas_info{?data_type,cycle,start,end}]
 
 + Parameters
-    + data_type (required, string, `112233445566`, 报表类型)
+    + data_type (required, string, `activation_history`, 报表类型)
     + cycle (required, string, `date`, 统计周期，可以为 date|week|month)
     + start (required, string, `2015-10-01`, 起始周期，为起始日期、起始周或起始月)
     + end (required, string, `2015-10-05`, 结束周期，为结束日期、结束周或结束月)
 
-## 获取激活报表 [GET]
+## 获取通用历史报表 [GET]
+
+* data_type:activation_history 获取激活历史报表
+* data_type:liveness_history  活跃历史报表
+* data_type:new_user    新增用户数
+* data_type:bt_liveness_report  蓝牙活跃报表
 
 + Request (application/json)
 
