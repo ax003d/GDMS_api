@@ -3338,3 +3338,88 @@ datetime按unit返回的格式是：
               "name": "Good Product",
               "type": "Bluetooth"
               }]
+
+## 设备活跃详情 [/report/products/{product_key}/active_devices{?start,end}]
+
+## 设备活跃详情接口
+
++ Parameters
+    + start (optional, string, `2015-08-12`, 开始时间)
+    + end (optional, string, `2015-08-13`, 结束时间)
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+
++ Response 200 (application/json)
+
+    + Header
+
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+            {
+                "meta": {
+                    "total": 100,
+                    "limit": 20,
+                    "skip": 0,
+                    "next": "/report/products/8f11ee69eb9d4269ba0777ca5e7280f5/active_devices?skip=20&limit=20",
+                    "previous": null
+                },
+                "objects": [{
+                    "report_date": "2016-04-11",
+                    "product_key": "ef12ba70c686479f926abebca21210d3",
+                    "mac": "accf235cf6ee",
+                    "country": "China",
+                    "region": "Guangdong",
+                    "city": "Guangzhou",
+                    "created_at": 1372700873
+                }]
+            }
+
+
+## 设备新增详情 [/report/products/{product_key}/incr_devices{?start,end}]
+
+## 设备新增详情接口
+
++ Parameters
+    + start (optional, string, `2015-08-12`, 开始时间)
+    + end (optional, string, `2015-08-13`, 结束时间)
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
+
++ Response 200 (application/json)
+
+    + Header
+
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+            {
+                "meta": {
+                    "total": 100,
+                    "limit": 20,
+                    "skip": 0,
+                    "next": "/report/products/8f11ee69eb9d4269ba0777ca5e7280f5/active_devices?skip=20&limit=20",
+                    "previous": null
+                },
+                "objects": [{
+                    "report_date": "2016-04-11",
+                    "product_key": "ef12ba70c686479f926abebca21210d3",
+                    "mac": "accf235cf6ee",
+                    "country": "China",
+                    "region": "Guangdong",
+                    "city": "Guangzhou",
+                    "created_at": 1372700873
+                }]
+            }
