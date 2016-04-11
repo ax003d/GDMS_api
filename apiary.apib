@@ -3059,15 +3059,13 @@ datetime按unit返回的格式是：
 
 # Group 运营系统报表
 
-## 通用报表接口
+## 通用报表接口[/report/products/{product_key}/datas_info{?data_type,gid}]
 
 * data_type:activation 获取激活报表
 * data_type:liveness 获取活跃报表
 * data_type:total_user 获取总用户数
 * data_type:fault_event 故障次数
 * data_type:alert_event 报警次数
-
-## 激活报表接口 [/report/products/{product_key}/datas_info{?data_type,gid}]
 
 + Parameters
     + data_type (required, string, `activation`, 报表类型)
@@ -3315,3 +3313,25 @@ datetime按unit返回的格式是：
                     }
                 }
             }
+
+## 产品信息列表搜索接口 [/report/products_info?{?product_key}]
+
+### 产品信息列表报表 [GET]
+
++ Response 200 (application/json)
+
+    + Header
+
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026f
+
+    + Body
+
+          [{
+            "name": "Good Product",
+            "type": "WiFi" | "Bluetooth"
+            },
+            {
+              "name": "Good Product",
+              "type": "WiFi" | "Bluetooth"
+              }]
