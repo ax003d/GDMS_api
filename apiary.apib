@@ -3059,7 +3059,13 @@ datetime按unit返回的格式是：
 
 # Group 运营系统报表
 
-## 激活报表接口[/report/products/{product_key}/datas_info{?data_type,gid}]
+## 通用报表接口 [/report/products/{product_key}/datas_info{?data_type,gid}]
+
+* data_type:activation 获取激活报表
+* data_type:liveness 获取活跃报表
+* data_type:total_user 获取总用户数
+* data_type:fault_event 故障次数
+* data_type:alert_event 报警次数
 
 + Parameters
     + data_type (required, string, `activation`, 报表类型)
