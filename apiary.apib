@@ -3059,10 +3059,218 @@ datetime按unit返回的格式是：
 
 # Group 运营系统报表
 
-## 通用历史报表接口 [/report/products/{product_key}/datas_info{?data_type,cycle,start,end}]
+## 通用报表接口
+
+* data_type:activation 获取激活报表
+* data_type:liveness 获取活跃报表
+* data_type:total_user 获取总用户数
+* data_type:fault_event 故障次数
+* data_type:alert_event 报警次数
+
+## 激活报表接口 [/report/products/{product_key}/datas_info{?data_type,gid}]
+
++ Parameters
+    + data_type (required, string, `activation`, 报表类型)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+
+### 获取激活报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+
+            {
+                "gid": null,
+                "total": 5600,
+                "activated": 5000,
+                "nonactivated": 600,
+                "location": {
+                    "China": {
+                        "count": 1000,
+                        "Guangdong": {
+                            "count": 500,
+                            "Guangzhou": 60
+                        }
+                    }
+                }
+            }
+
+
+## 活跃报表接口 [/report/products/{product_key}/datas_info{?data_type,gid}]
+
++ Parameters
+    + data_type (required, string, `liveness`, 报表类型)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+
+### 获取活跃报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+
+            {
+                "gid": null,
+                "latest_1": 40,
+                "latest_7": 100,
+                "latest_30": 300,
+                "location": {
+                    "China": {
+                        "latest_1": 40,
+                        "latest_7": 100,
+                        "latest_30": 300,
+                        "Guangdong": {
+                            "latest_1": 40,
+                            "latest_7": 100,
+                            "latest_30": 300,
+                            "Guangzhou": {
+                                "latest_1": 4s
+                                "latest_7": 100,
+                                "latest_30": 300,
+                            }
+                        }
+                    }
+                }
+            }
+
+
+## 用户总数数报表接口 [/report/products/{product_key}/datas_info{?data_type,gid}]
+
++ Parameters
+    + data_type (required, string, `total_user`, 报表类型)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+
+### 获取用户总数数报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+
+            {
+                "gid": null,
+                "total": 5600
+            }
+
+## 故障报警次数报表接口 [/report/products/{product_key}/datas_info{?data_type,gid}]
+
++ Parameters
+    + data_type (required, string, `fault_event|alert_event`, 报表类型)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+
+### 获取故障报警次数报表 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            Last-Modified: Fri, 12 May 2015 18:53:33 GMT
+            ETag: "5d33c96c1ce649fe84297ce8e026fe66"
+
+    + Body
+
+            {
+                "gid": null,
+                "count": {
+                    "total": 5600,
+                    "resolved": 5000,
+                    "unresolved": 600
+                },
+                "detail": {
+                    "gate": {
+                        "total": 5600,
+                        "resolved": 5000,
+                        "unresolved": 600
+                    }
+                },
+                "location": {
+                    "China": {
+                        "count": {
+                            "total": 5600,
+                            "resolved": 5000,
+                            "unresolved": 600
+                        },
+                        "detail": {
+                            "gate": {
+                                "total": 5600,
+                                "resolved": 5000,
+                                "unresolved": 600
+                            }
+                        },
+                        "Guangdong": {
+                            "count": {
+                                "total": 5600,
+                                "resolved": 5000,
+                                "unresolved": 600
+                            },
+                            "detail": {
+                                "gate": {
+                                    "total": 5600,
+                                    "resolved": 5000,
+                                    "unresolved": 600
+                                }
+                            },
+                            "Guangzhou": {
+                                "count": {
+                                    "total": 5600,
+                                    "resolved": 5000,
+                                    "unresolved": 600
+                                },
+                                "detail": {
+                                    "gate": {
+                                        "total": 5600,
+                                        "resolved": 5000,
+                                        "unresolved": 600
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+## 通用历史报表接口 [/report/products/{product_key}/datas_info{?data_type,gid,cycle,start,end}]
 
 + Parameters
     + data_type (required, string, `activation_history`, 报表类型)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
     + cycle (required, string, `date`, 统计周期，可以为 date|week|month)
     + start (required, string, `2015-10-01`, 起始周期，为起始日期、起始周或起始月)
     + end (required, string, `2015-10-05`, 结束周期，为结束日期、结束周或结束月)
