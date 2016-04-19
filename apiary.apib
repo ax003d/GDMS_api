@@ -1546,6 +1546,212 @@ payload 为二进制进行 base64 编码后的结果。
                 "failed": ["adad", "ee"]
             }
 
+## 设备概览 [/v1/products/{product_key}/devices_intro]
+
+
+### 设备概览接口 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+            {
+                "online": 123,  # 设备在线数
+                "new_today": 55, # 今日新增数
+                "lastday": 33, # 昨日活跃数
+                "total": 100 # 累计上线数
+            }
+
+
+## 活跃新增报表 [/v1/products/{product_key}/devices/incr_active_data{?type}]
+
+type类型, active:代表活跃设备，incr:代表新增设备
+
+### 活跃新增报表接口 [GET]
+
++ Parameters
+    + type(required, string, `incr|active`, 类型)
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+            {
+                "today": 123, # 今日新增
+                "yesterday": 56, # 前一天新增
+                "lastest_7": 100, # 近7天新增   
+                "lastest_30": 350 # 近30天新增
+            }
+
+
+## 活跃新增历史报表 [/v1/products/{product_key}/devices/incr_active_data/history{?type, start, end}]
+
+type类型, active:代表活跃设备，incr:代表新增设备
+
+最多查询 30 天
+
+### 活跃新增历史报表接口 [GET]
+
++ Parameters
+    + type(required, string, `incr|active`, 类型)
+    + start(required, string, `2015-08-11`, 开始日期)
+    + end(required, string, `2015-08-11`, 结束日期)
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+            {
+                "meta": {
+                    "start": "2015-08-11",
+                    "end": "2015-08-15"
+                },
+                "data": [{
+                    "report_date": "2015-08-11",
+                    "count": 33
+                }]
+
+            }
+
+## 活跃新增历史详情查询 [/v1/products/{product_key}/devices/incr_active/search{?type, report_date}]
+
+type类型, active:代表活跃设备，incr:代表新增设备
+
+### 活跃新增历史详情查询接口 [GET]
+
++ Parameters
+    + type(required, string, `incr|active`, 类型)
+    + report_date(required, string, `2015-08-11`, 日期查询)
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+            {
+                "meta": {
+                    "total": 100,
+                    "limit": 20,
+                    "skip": 0,
+                    "next": "/v1/products/8f11ee69eb9d4269ba0777ca5e7280f5/devices/incr_active/search&skip=20&limit=20",
+                    "previous": null
+                },
+                "objects": [{
+                    "report_date": "2015-08-11",
+                    "mac": "mac111",
+                    "country": "China",
+                    "region": "Guangdong",
+                    "city": "Guangzhou"
+                }]
+            }
+
+## 活跃周期 [/v1/products/{product_key}/devices/period]
+
+
+### 活跃周期查询接口 [GET]
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+            {
+                "one_week": 30,
+                "one_month": 30,
+                "three_month": 45,
+                "half_year": 60,
+                "one_year": 100
+            }
+
+
+## 连接时长 [/v1/products/{product_key}/devices/connection_time]
+
+### 连接时长查询接口 [GET]
+
+
++ Request (application/json)
+
+    + Header
+
+        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
++ Response 200 (application/json)
+
+    + Header
+
+            X-RateLimit-Limit: 60
+            X-RateLimit-Remaining: 56
+            X-RateLimit-Reset: 1372700873
+
+    + Body
+            {
+                "online_cnt_h": 30, # 0～1小时
+                "online_cnt_eh": 40, # 1～8小时
+                "online_cnt_day": 50, # 8～24小时
+                "online_cnt_week": 30, # 1～5天
+                "online_cnt_month": 55, # 5～30天
+                "online_cnt_amontmoth": 88, # 30天以上
+                "time_interval_distribution": [  # 在线时段分布
+                    {"rate": 15.2}, 
+                    {"rate": 30},
+                    {"rate": 50}]
+
+            }
+
+
 # Group 用户
 
 ## 用户总数报表（实时） [/v1/products/{product_key}/users/report/total{?gid}]
