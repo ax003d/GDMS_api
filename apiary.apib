@@ -1581,7 +1581,7 @@ type类型, active:代表活跃设备，incr:代表新增设备
 ### 活跃新增报表接口 [GET]
 
 + Parameters
-    + type(required, string, `incr|active`, 类型)
+    + type (required, string, `incr`, 类型为incr|active)
 
 + Request (application/json)
 
@@ -1615,9 +1615,9 @@ type类型, active:代表活跃设备，incr:代表新增设备
 ### 活跃新增历史报表接口 [GET]
 
 + Parameters
-    + type(required, string, `incr|active`, 类型)
-    + start(required, string, `2015-08-11`, 开始日期)
-    + end(required, string, `2015-08-11`, 结束日期)
+    + type (required, string, `incr`, 类型为incr|active)
+    + start (required, string, `2015-08-11`, 开始日期)
+    + end (required, string, `2015-08-11`, 结束日期)
 
 + Request (application/json)
 
@@ -1653,8 +1653,8 @@ type类型, active:代表活跃设备，incr:代表新增设备
 ### 活跃新增历史详情查询接口 [GET]
 
 + Parameters
-    + type(required, string, `incr|active`, 类型)
-    + report_date(required, string, `2015-08-11`, 日期查询)
+    + type (required, string, `incr`, 类型为incr|active)
+    + report_date (required, string, `2015-08-11`, 日期查询)
 
 + Request (application/json)
 
