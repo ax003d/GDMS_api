@@ -1546,7 +1546,7 @@ payload 为二进制进行 base64 编码后的结果。
                 "failed": ["adad", "ee"]
             }
 
-## 设备概览 [/v1/products/{product_key}/devices_intro]
+## 设备概览 [/v1/products/{product_key}/summary]
 
 
 ### 设备概览接口 [GET]
@@ -1568,20 +1568,29 @@ payload 为二进制进行 base64 编码后的结果。
     + Body
             {
                 "online": 123,  # 设备在线数
-                "new_today": 55, # 今日新增数
-                "lastday": 33, # 昨日活跃数
-                "total": 100 # 累计上线数
+                "total": 100, # 累计上线数
+                "new": {
+                    "today": 55, # 今日新增
+                    "yesterday": 10, # 前一天新增
+                    "7_day": 100, # 近7天新增
+                    "30_day": 1000 # 近30天新增
+                },
+                "active" {
+                    "yesterday": 10, # 昨天活跃
+                    "7_day": 100 # 近7天活跃
+                }
             }
 
-
-## 活跃新增报表 [/v1/products/{product_key}/devices/incr_active_data{?type}]
-
-type类型, active:代表活跃设备，incr:代表新增设备
-
-### 活跃新增报表接口 [GET]
+## 设备活跃详情 [/v1/products/{product_key}/active_devices{?start,end,country,region,city}]
 
 + Parameters
-    + type (required, string, `incr`, 类型为incr|active)
+    + start (optional, string, `2015-08-12`, 开始时间)
+    + end (optional, string, `2015-08-13`, 结束时间)
+    + country (optional, string, `China`, 国家)
+    + region (optional, string, `Guangdong`, 省)
+    + city (optional, string, `Guangzhou`, 城市)
+
+### 设备活跃详情接口 [GET]
 
 + Request (application/json)
 
@@ -1589,78 +1598,52 @@ type类型, active:代表活跃设备，incr:代表新增设备
 
         Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
-+ Response 200 (application/json)
-
-    + Header
-
-            X-RateLimit-Limit: 60
-            X-RateLimit-Remaining: 56
-            X-RateLimit-Reset: 1372700873
-
-    + Body
-            {
-                "today": 123, # 今日新增
-                "yesterday": 56, # 前一天新增
-                "lastest_7": 100, # 近7天新增   
-                "lastest_30": 350 # 近30天新增
-            }
-
-
-## 活跃新增历史报表 [/v1/products/{product_key}/devices/incr_active_data/history{?type,start,end}]
-
-type类型, active:代表活跃设备，incr:代表新增设备
-
-最多查询 30 天
-
-### 活跃新增历史报表接口 [GET]
-
-+ Parameters
-    + type (required, string, `incr`, 类型为incr|active)
-    + start (required, string, `2015-08-11`, 开始日期)
-    + end (required, string, `2015-08-11`, 结束日期)
-
-+ Request (application/json)
-
-    + Header
-
-        Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
 
 + Response 200 (application/json)
 
     + Header
-
-            X-RateLimit-Limit: 60
-            X-RateLimit-Remaining: 56
-            X-RateLimit-Reset: 1372700873
+                X-RateLimit-Limit: 60
+                X-RateLimit-Remaining: 56
+                X-RateLimit-Reset: 1372700873
 
     + Body
             {
                 "meta": {
-                    "start": "2015-08-11",
-                    "end": "2015-08-15"
+                    "total": 100,
+                    "limit": 20,
+                    "skip": 0,
+                    "next": "/report/products/8f11ee69eb9d4269ba0777ca5e7280f5/active_devices?skip=20&limit=20",
+                    "previous": null
                 },
-                "data": [{
-                    "report_date": "2015-08-11",
-                    "count": 33
+                "objects": [{
+                    "report_date": "2016-04-11",
+                    "product_key": "ef12ba70c686479f926abebca21210d3",
+                    "mac": "accf235cf6ee",
+                    "country": "China",
+                    "region": "Guangdong",
+                    "city": "Guangzhou",
+                    "created_at": 1372700873
                 }]
-
             }
 
-## 活跃新增历史详情查询 [/v1/products/{product_key}/devices/incr_active/search{?type, report_date}]
 
-type类型, active:代表活跃设备，incr:代表新增设备
-
-### 活跃新增历史详情查询接口 [GET]
+## 设备新增详情 [/v1/products/{product_key}/incr_devices{?start,end,country,region,city}]
 
 + Parameters
-    + type (required, string, `incr`, 类型为incr|active)
-    + report_date (required, string, `2015-08-11`, 日期查询)
+    + start (optional, string, `2015-08-12`, 开始时间)
+    + end (optional, string, `2015-08-13`, 结束时间)
+    + country (optional, string, `China`, 国家)
+    + region (optional, string, `Guangdong`, 省)
+    + city (optional, string, `Guangzhou`, 城市)
+
+### 设备新增详情接口 [GET]
 
 + Request (application/json)
 
     + Header
 
         Authorization: token 7cf955ec8b504d6497d83f39ce9b16d2
+
 
 + Response 200 (application/json)
 
@@ -1676,19 +1659,22 @@ type类型, active:代表活跃设备，incr:代表新增设备
                     "total": 100,
                     "limit": 20,
                     "skip": 0,
-                    "next": "/v1/products/8f11ee69eb9d4269ba0777ca5e7280f5/devices/incr_active/search&skip=20&limit=20",
+                    "next": "/report/products/8f11ee69eb9d4269ba0777ca5e7280f5/active_devices?skip=20&limit=20",
                     "previous": null
                 },
                 "objects": [{
-                    "report_date": "2015-08-11",
-                    "mac": "mac111",
+                    "report_date": "2016-04-11",
+                    "product_key": "ef12ba70c686479f926abebca21210d3",
+                    "mac": "accf235cf6ee",
                     "country": "China",
                     "region": "Guangdong",
-                    "city": "Guangzhou"
+                    "city": "Guangzhou",
+                    "created_at": 1372700873
                 }]
             }
 
-## 活跃周期 [/v1/products/{product_key}/devices/period]
+
+## 活跃周期 [/v1/products/{product_key}/active_cycle]
 
 
 ### 活跃周期查询接口 [GET]
@@ -1709,15 +1695,15 @@ type类型, active:代表活跃设备，incr:代表新增设备
 
     + Body
             {
-                "one_week": 30,
-                "one_month": 30,
-                "three_month": 45,
-                "half_year": 60,
-                "one_year": 100
+                "1_week": 30,
+                "2_month": 30,
+                "3_month": 45,
+                "6_month": 60,
+                "1_year": 100
             }
 
 
-## 连接时长 [/v1/products/{product_key}/devices/connection_time]
+## 连接时长 [/v1/products/{product_key}/devices/connection_duration]
 
 ### 连接时长查询接口 [GET]
 
@@ -1738,17 +1724,35 @@ type类型, active:代表活跃设备，incr:代表新增设备
 
     + Body
             {
-                "online_cnt_h": 30, # 0～1小时
-                "online_cnt_eh": 40, # 1～8小时
-                "online_cnt_day": 50, # 8～24小时
-                "online_cnt_week": 30, # 1～5天
-                "online_cnt_month": 55, # 5～30天
-                "online_cnt_amontmoth": 88, # 30天以上
-                "time_interval_distribution": [  # 在线时段分布
-                    {"rate": 15.2}, 
-                    {"rate": 30},
-                    {"rate": 50}]
-
+                "1_hour": { # 0～1小时
+                    "count": 100,
+                    "device": 50
+                },
+                "8_hour": {  # 1～8小时
+                    "count": 100,
+                    "device": 50
+                },
+                "1_day": { # 8～24小时
+                    "count": 100,
+                    "device": 50
+                },
+                "5_day": {  # 1～5天
+                    "count": 100,
+                    "device": 50
+                },
+                "30_day": {  # 5～30天
+                    "count": 100,
+                    "device": 50
+                },
+                "30_day_above": { # 30天以上
+                    "count": 100,
+                    "device": 50
+                }
+                "online_range": {
+                    0: 22,  # 0-1时段
+                    1: 33   # 1-2时段
+                    ....
+                }
             }
 
 
