@@ -534,7 +534,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 ## 设备查询接口 [/v1/products/{product_key}/devices{?mac}]
 
 + Parameters
-    + mac (required, string, `112233445566`, mac地址)
+    + mac (required, string, `112233445566`) ... mac地址
 
 ### 获取设备信息 [GET]
 
@@ -565,7 +565,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 ## 激活报表（大数据） [/v1/products/{product_key}/devices/report/activation{?gid}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
 
 ### 获取激活报表 [GET]
 
@@ -606,10 +606,10 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 ## 激活历史报表（大数据） [/v1/products/{product_key}/devices/report/activation/history{?gid,cycle,start,end}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
-    + cycle (required, string, `date`, 统计周期，可以为 date|week|month)
-    + start (required, string, `2015-10-01`, 起始周期，为起始日期、起始周或起始月)
-    + end (required, string, `2015-10-05`, 结束周期，为结束日期、结束周或结束月)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
+    + cycle (required, string, `date`) ... 统计周期，可以为 date|week|month
+    + start (required, string, `2015-10-01`) ... 起始周期，为起始日期、起始周或起始月
+    + end (required, string, `2015-10-05`) ... 结束周期，为结束日期、结束周或结束月
 
 ### 获取激活历史报表 [GET]
 
@@ -779,7 +779,7 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 ## 活跃设备报表（实时） [/v1/products/{product_key}/devices/report/liveness{?gid}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
 
 ### 获取活跃设备报表 [GET]
 
@@ -828,10 +828,10 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 ## 活跃历史报表（大数据） [/v1/products/{product_key}/devices/report/liveness/history{?gid,cycle,start,end}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
-    + cycle (required, string, `date`, 统计周期，可以为 date|week|month)
-    + start (required, string, `2015-10-01`, 起始周期，为起始日期、起始周或起始月)
-    + end (required, string, `2015-10-05`, 结束周期，为结束日期、结束周或结束月)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
+    + cycle (required, string, `date`) ... 统计周期，可以为 date|week|month
+    + start (required, string, `2015-10-01`) ... 起始周期，为起始日期、起始周或起始月
+    + end (required, string, `2015-10-05`) ... 结束周期，为结束日期、结束周或结束月
 
 ### 获取活跃历史报表 [GET]
 
@@ -990,16 +990,16 @@ parent 为可选参数，如果有 parent 表示创建一个子设备组。
 ## 搜索设备（实时） [/v1/products/{product_key}/devices/search{?gid,country,region,city,is_online,is_faulty,is_alert,show_disabled,type,val,liveness_start,limit,skip}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
     + country (optional, string, `China`)
     + region (optional, string, `Guangdong`)
     + city (optional, string, `Guangzhou`)
-    + is_online (optional, integer, `1`, 在线为 1，不在线为 0)
-    + is_faulty (optional, integer, `1`, 故障为 1，无故障为 0)
-    + is_alert (optional, integer, `1`, 报警为 1，无报警为 0)
-    + show_disabled (optional, integer, `1`, 显示注销为1，过滤注销为0)
-    + liveness_start (optional, integer, `1431593561`, 最近活跃时间戳)
-    + type (optional, string, `did`, 可以为 did|mac|uid)
+    + is_online (optional, integer, `1`) ...  在线为 1，不在线为 0
+    + is_faulty (optional, integer, `1`) ... 故障为 1，无故障为 0
+    + is_alert (optional, integer, `1`) ... 报警为 1，无报警为 0
+    + show_disabled (optional, integer, `1`) ... 显示注销为1，过滤注销为0
+    + liveness_start (optional, integer, `1431593561`) ... 最近活跃时间戳
+    + type (optional, string, `did`) ... 可以为 did|mac|uid
     + val (optional, string, `gdGn7PzAYf4VrhnVag5x8D`)
     + limit (optional, integer, `20`)
     + skip (optional, integer, `0`)
@@ -1052,12 +1052,12 @@ mac 地址忽略大小写。
 ## 搜索蓝牙设备（实时） [/v1/products/{product_key}/devices/search_bt{?gid,country,region,city,type,val,liveness_start,limit,skip}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
     + country (optional, string, `China`)
     + region (optional, string, `Guangdong`)
     + city (optional, string, `Guangzhou`)
-    + liveness_start (optional, integer, `1431593561`, 最近活跃时间戳)
-    + type (optional, string, `device_sn`, 可以为 device_sn|uid)
+    + liveness_start (optional, integer, `1431593561`) ... 最近活跃时间戳
+    + type (optional, string, `device_sn`) ... 可以为 device_sn|uid
     + val (optional, string, `gdGn7PzAYf4VrhnVag5x8D`)
     + limit (optional, integer, `20`)
     + skip (optional, integer, `0`)
@@ -1293,7 +1293,7 @@ payload 为二进制进行 base64 编码后的结果。
 ## 设备地理位置分布（实时） [/v1/products/{product_key}/devices/locations{?gid,is_online,is_faulty,is_alert}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
     + is_online (optional, integer, `1`)
     + is_faulty (optional, integer, `0`)
     + is_alert (optional, integer, `1`)
@@ -1335,7 +1335,7 @@ payload 为二进制进行 base64 编码后的结果。
 ## 蓝牙设备地理位置分布（实时） [/v1/products/{product_key}/devices/locations_bt{?gid,liveness_start}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
     + liveness_start (optional, integer, `1`)
 
 ### 获取蓝牙设备地理位置分布 [GET]
@@ -1584,11 +1584,11 @@ payload 为二进制进行 base64 编码后的结果。
 ## 设备活跃详情 [/v1/products/{product_key}/active_devices{?start,end,country,region,city}]
 
 + Parameters
-    + start (optional, string, `2015-08-12`, 开始时间)
-    + end (optional, string, `2015-08-13`, 结束时间)
-    + country (optional, string, `China`, 国家)
-    + region (optional, string, `Guangdong`, 省)
-    + city (optional, string, `Guangzhou`, 城市)
+    + start (optional, string, `2015-08-12`) ... 开始时间
+    + end (optional, string, `2015-08-13`) ... 结束时间
+    + country (optional, string, `China`) ... 国家
+    + region (optional, string, `Guangdong`) ... 省
+    + city (optional, string, `Guangzhou`) ... 城市
 
 ### 设备活跃详情接口 [GET]
 
@@ -1630,11 +1630,11 @@ payload 为二进制进行 base64 编码后的结果。
 ## 设备新增详情 [/v1/products/{product_key}/incr_devices{?start,end,country,region,city}]
 
 + Parameters
-    + start (optional, string, `2015-08-12`, 开始时间)
-    + end (optional, string, `2015-08-13`, 结束时间)
-    + country (optional, string, `China`, 国家)
-    + region (optional, string, `Guangdong`, 省)
-    + city (optional, string, `Guangzhou`, 城市)
+    + start (optional, string, `2015-08-12`) ... 开始时间
+    + end (optional, string, `2015-08-13`) ... 结束时间
+    + country (optional, string, `China`) ... 国家
+    + region (optional, string, `Guangdong`) ... 省
+    + city (optional, string, `Guangzhou`) ... 城市
 
 ### 设备新增详情接口 [GET]
 
@@ -1762,7 +1762,7 @@ payload 为二进制进行 base64 编码后的结果。
 ## 用户总数报表（实时） [/v1/products/{product_key}/users/report/total{?gid}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
 
 ### 获取用户总数报表 [GET]
 
@@ -1792,10 +1792,11 @@ payload 为二进制进行 base64 编码后的结果。
 ## 用户新增报表（大数据） [/v1/products/{product_key}/users/report/new{?gid,cycle,start,end}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
-    + cycle (required, string, `date`, 统计周期，可以为 date|week|month)
-    + start (required, string, `2015-10-01`, 起始周期，为起始日期、起始周或起始月)
-    + end (required, string, `2015-10-05`, 结束周期，为结束日期、结束周或结束月)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
+    + cycle (required, string, `date`) ... 统计周期，可以为 date|week|month
+    + start (required, string, `2015-10-01`) ... 起始周期，为起始日期、起始周或起始月
+    + end (required, string, `2015-10-05`) ... 结束周期，为结束日期、结束周或结束月
+
 
 ### 获取用户新增报表 [GET]
 
@@ -1965,10 +1966,11 @@ payload 为二进制进行 base64 编码后的结果。
 ## 蓝牙用户活跃报表（大数据） [/v1/products/{product_key}/users/report/liveness_bt{?gid,cycle,start,end}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
-    + cycle (required, string, `date`, 统计周期，可以为 date|week|month)
-    + start (required, string, `2015-10-01`, 起始周期，为起始日期、起始周或起始月)
-    + end (required, string, `2015-10-05`, 结束周期，为结束日期、结束周或结束月)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
+    + cycle (required, string, `date`) ... 统计周期，可以为 date|week|month
+    + start (required, string, `2015-10-01`) ... 起始周期，为起始日期、起始周或起始月
+    + end (required, string, `2015-10-05`) ... 结束周期，为结束日期、结束周或结束月
+
 
 ### 蓝牙用户活跃报表 [GET]
 
@@ -2539,9 +2541,9 @@ auth_src 可以为 qq, baidu, sina。
 ## 自定义事件报表（实时） [/v1/products/{product_key}/bt/custom_event{?cycle,start,end,event_id}]
 
 + Parameters
-    + cycle (required, string, `date`, 统计周期，可以为 date|week|month)
-    + start (required, string, `2015-10-01`, 起始周期，为起始日期、起始周或起始月)
-    + end (required, string, `2015-10-05`, 结束周期，为结束日期、结束周或结束月)
+    + cycle (required, string, `date`) ... 统计周期，可以为 date|week|month
+    + start (required, string, `2015-10-01`) ... 起始周期，为起始日期、起始周或起始月
+    + end (required, string, `2015-10-05`) ... 结束周期，为结束日期、结束周或结束月
     + event_id (optional, string, `abcdef`, 事件id)
 
 ### 获取自定义事件历史报表 [GET]
@@ -3478,11 +3480,12 @@ datetime按unit返回的格式是：
 ## 通用历史报表接口 [/report/products/{product_key}/datas_info{?data_type,gid,cycle,start,end}]
 
 + Parameters
-    + data_type (required, string, `activation_history`, 报表类型)
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
-    + cycle (required, string, `date`, 统计周期，可以为 date|week|month)
-    + start (required, string, `2015-10-01`, 起始周期，为起始日期、起始周或起始月)
-    + end (required, string, `2015-10-05`, 结束周期，为结束日期、结束周或结束月)
+    + data_type (required, string, `activation_history`) ... 报表类型
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
+    + cycle (required, string, `date`) ... 统计周期，可以为 date|week|month
+    + start (required, string, `2015-10-01`) ... 起始周期，为起始日期、起始周或起始月
+    + end (required, string, `2015-10-05`) ... 结束周期，为结束日期、结束周或结束月
+
 
 ## 获取通用历史报表 [GET]
 
