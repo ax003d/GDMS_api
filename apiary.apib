@@ -2140,11 +2140,11 @@ payload 为二进制进行 base64 编码后的结果。
 ## 搜索用户（实时） [/v1/products/{product_key}/users/search{?type,val,limit,skip}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
-    + type (optional, string, `username`, 查询条件，为 username|phone|email|did|mac|device_sn)
-    + val (optional, string, `Bob`, 查询条件值)
-    + limit (optional, integer, `20`, 每次返回的条数)
-    + skip (optional, integer, `0`, 每次跳过的条数)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ...  设备组 ID
+    + type (optional, string, `username`) ... 查询条件，为 username|phone|email|did|mac|device_sn
+    + val (optional, string, `Bob`) ... 查询条件值
+    + limit (optional, integer, `20`) ... 每次返回的条数
+    + skip (optional, integer, `0`) ... 每次跳过的条数
 
 ### 搜索用户 [GET]
 
@@ -2198,7 +2198,7 @@ auth_src 可以为 qq, baidu, sina。
 ## 故障设备台数报表 [/v1/products/{product_key}/fault/report/devices{?gid}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
 
 ### 获取故障设备台数报表 [GET]
 
@@ -2255,7 +2255,7 @@ auth_src 可以为 qq, baidu, sina。
 ## 报警设备台数报表 [/v1/products/{product_key}/alert/report/devices{?gid}]
 
 + Parameters
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
 
 ### 获取报警设备台数报表 [GET]
 
@@ -2783,7 +2783,7 @@ auth_src 可以为 qq, baidu, sina。
 ## 蓝牙固件 [/product/{product_key}/bt/firmware/{uuid}]
 
 + Parameters
-    + uuid (required, string, `xxxx`, 固件id)
+    + uuid (required, string, `xxxx`) ... 固件id
 
 ### 获取蓝牙固件 [GET]
 
@@ -3019,7 +3019,7 @@ auth_src 可以为 qq, baidu, sina。
 ## 蓝牙固件下载 [/product/{product_key}/bt/firmware/file{?uuid}]
 
 + Parameters
-    + uuid (required, string, `uuid1`, 固件id)
+    + uuid (required, string, `uuid1`) ... 固件id
 
 ### 下载 [GET]
 
@@ -3050,7 +3050,7 @@ auth_src 可以为 qq, baidu, sina。
 ## 升级设备数 [/product/{product_key}/bt/devices/upgraded{?to_uuid}]
 
 + Parameters
-    + to_uuid (required, string, `uuid1`, 固件id)
+    + to_uuid (required, string, `uuid1`) ... 固件id
 
 ### 获取升级设备数 [GET]
 
@@ -3151,12 +3151,12 @@ unit include [HOURS,DAYS,WEEKS,MONTHS]
 ## 产品聚合接口 [/v1/products/{product_key}/agg_data{?start_ts,end_ts,aggregator,attrs}]
 
 + Parameters
-    + start_ts (required, number, `1447919887000`, 开始日期)
-    + end_ts (optional, number, `1447919895000`, 结束日期)
-    + aggregator (required, string, `sum`, 聚合可以选择sum|avg)
+    + start_ts (required, number, `1447919887000`) ... 开始日期
+    + end_ts (optional, number, `1447919895000`) ... 结束日期
+    + aggregator (required, string, `sum`) ... 聚合可以选择sum|avg
     + attrs (required, string, `Cartridge_Life_1,mode`)
     + unit (required, string, `DAYS`)
-    + unit_interval (optional, number, `1`, 默认为1)
+    + unit_interval (optional, number, `1`) ... 默认为1
 
 ### 获取聚合数据 [GET]
 
@@ -3281,8 +3281,8 @@ datetime按unit返回的格式是：
 * data_type:alert_event 报警次数
 
 + Parameters
-    + data_type (required, string, `activation`, 报表类型)
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + data_type (required, string, `activation`) ... 报表类型
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
 
 ### 获取激活报表 [GET]
 
@@ -3369,8 +3369,8 @@ datetime按unit返回的格式是：
 ## 用户总数数报表接口 [/report/products/{product_key}/datas_info{?data_type,gid}]
 
 + Parameters
-    + data_type (required, string, `total_user`, 报表类型)
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + data_type (required, string, `total_user`) ... 报表类型
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
 
 ### 获取用户总数数报表 [GET]
 
@@ -3397,8 +3397,8 @@ datetime按unit返回的格式是：
 ## 故障报警次数报表接口 [/report/products/{product_key}/datas_info{?data_type,gid}]
 
 + Parameters
-    + data_type (required, string, `fault_event|alert_event`, 报表类型)
-    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`, 设备组 ID)
+    + data_type (required, string, `fault_event|alert_event`) ... 报表类型
+    + gid (optional, string, `450efc08ee084a839bbf15d5f9ada9e7`) ... 设备组 ID
 
 ### 获取故障报警次数报表 [GET]
 
@@ -3533,7 +3533,7 @@ datetime按unit返回的格式是：
 ### 产品信息列表报表 [GET]
 
 + Parameters
-    + product_key (required, string, `pk1,pk2,pk3`, 产品product_key搜索值)
+    + product_key (required, string, `pk1,pk2,pk3`) ... 产品product_key搜索值
 
 + Response 200 (application/json)
 
@@ -3556,11 +3556,11 @@ datetime按unit返回的格式是：
 ## 设备活跃详情 [/report/products/{product_key}/active_devices{?start,end,country,region,city}]
 
 + Parameters
-    + start (optional, string, `2015-08-12`, 开始时间)
-    + end (optional, string, `2015-08-13`, 结束时间)
-    + country (optional, string, `China`, 国家)
-    + region (optional, string, `Guangdong`, 省)
-    + city (optional, string, `Guangzhou`, 城市)
+    + start (optional, string, `2015-08-12`) ... 开始时间
+    + end (optional, string, `2015-08-13`) ... 结束时间
+    + country (optional, string, `China`) ... 国家
+    + region (optional, string, `Guangdong`) ... 省
+    + city (optional, string, `Guangzhou`) ... 城市
 
 ### 设备活跃详情接口 [GET]
 
@@ -3602,12 +3602,12 @@ datetime按unit返回的格式是：
 ## 设备新增详情 [/report/products/{product_key}/incr_devices{?start,end,country,region,city}]
 
 + Parameters
-    + start (optional, string, `2015-08-12`, 开始时间)
-    + end (optional, string, `2015-08-13`, 结束时间)
-    + country (optional, string, `China`, 国家)
-    + region (optional, string, `Guangdong`, 省)
-    + city (optional, string, `Guangzhou`, 城市)
-
+    + start (optional, string, `2015-08-12`) ... 开始时间
+    + end (optional, string, `2015-08-13`) ... 结束时间
+    + country (optional, string, `China`) ... 国家
+    + region (optional, string, `Guangdong`) ... 省
+    + city (optional, string, `Guangzhou`) ... 城市
+    
 ### 设备新增详情接口 [GET]
 
 + Request (application/json)
